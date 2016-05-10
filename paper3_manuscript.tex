@@ -1,0 +1,86 @@
+%\documentclass[draftclsnofoot,onecolumn]{IEEEtran}
+\documentclass[3p]{elsarticle}
+\usepackage{tipa}
+\usepackage{amsmath}%math
+\usepackage{amsthm}%proof
+\usepackage{xcolor}%color
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage[colorlinks,linkcolor=black,anchorcolor=black,citecolor=black]{hyperref}
+\usepackage{amsfonts,amssymb}
+\usepackage{color,soul}
+\theoremstyle{plain}
+\newtheorem{assumption}{Assumption}
+\newtheorem{mydef}{Definition}
+\newtheorem{mylem}{Lemma}
+\newtheorem{myrem}{Remark}
+\newtheorem{mythm}{Theorem}
+\begin{document}
+\begin{frontmatter}
+\title{Dual terminal sliding mode control}
+\author{Zhiqiang Ma}
+\author{Guanghui Sun\corref{cor1}}
+\ead{guanghuisun@hit.edu.cn}
+\cortext[cor1]{Corresponding author}
+\address{Research Institute of Intelligent Control and Systems, Harbin Institute of Technology, Harbin 150001, China}
+
+\begin{abstract}
+\end{abstract}
+\begin{keyword}
+\end{keyword}
+\end{frontmatter}
+\section{Introduction}
+\section{Dual sliding mode control}
+Consider a four-order nominal nonlinear system:
+\begin{align}
+\dot x_1(t) &= x_2(t)\\
+\dot x_2(t) &= f_1(\bm x,t)+g_1(\bm x,t)+b_1(\bm x,t)u_1(t)\\
+\dot x_3(t) &= x_4(t)\\
+\dot x_5(t) &= f_2(\bm x,t)+g_2(\bm x,t)+b_2(\bm x,t)u_2(t)\label{eq:four order system}
+\end{align}
+where $bm x = [x_1,x_2,x_3,x_4]^T$ is the system vector state; $f(\bm x,t)$ and $b(\bm x,t)\neq 0$ are smooth nonlinear functions with respect to $\bm x$; $u_i(t)$, $i=1,2$ stands for the scalar input; $g_i(\bm x,t)$, $i=1,2$  is a defined as a bounded nonlinear function which satisfies $\Vert g_i(\bm x,t)\Vert\le l_i$, $l_i>0$, meaning the uncertainty and disturbance of the system. For the system mentioned above, we can establish a desired dual sliding manifold as:
+\begin{align}
+\bm s(t) = [s_1(t),s_2(t)]^T
+\end{align}
+where
+\begin{align}
+s_1(t) = x_2(t)+\vert x_1(t)\vert^{\alpha_1} sgn(x_1(t))+x_1^3(t)-x_3(t)\\
+s_2(t) = x_4(t)+\vert x_3(t)\vert^{\alpha_2} sgn(x_3(t))+x_3^3(t)+x_1(t)\label{eq:dual sliding manifold}
+\end{align}
+where $sgn(x)$ is the sign function, and $0<\alpha_i<1$. For the sake of simplicity, the symbol $t$ is usually omitting in this paper, which does not cause any confusion, and it will appear once the derivation concerns for the factor of the time strictly, i.e., the desired sliding manifold $\bm s(t)$ is often abbreviated to $\bm s$.\par
+Dual sliding mode control inputs can be given according the following theorem.
+\begin{mythm}
+The four-order system (\ref{eq:four order system}) will reach the desired manifold $\bm s = 0$ shown in Eq. (\ref{eq:dual sliding manifold}) in finite time. The states of the system will converge to zero along the manifold $\bm s=0$ in finite time, if the inputs are designed as follows:
+\begin{align}
+u_1 = -b_1(\bm x)^{-1}(f_1(\bm x)+\alpha_1\vert x_1\vert^{\alpha_1-1}x_2+3x_1^2x_2-x_4+k_1sgn(s_1))\\
+u_2 = -b_2(\bm x)^{-1}(f_2(\bm x)+\alpha_2\vert x_3\vert^{\alpha_2-1}x_4+3x_3^2x_4+x_2+k_2sgn(s_2))
+\end{align}
+where $k_i = l_i+\eta_i$, $i=1,2$ , $\eta_i>0$ is a positive scalar value.
+\end{mythm}
+\begin{proof}
+Consider the Lyapunov function $V=\frac{1}{2}{\bm s}^T\bm s$, the derivative of which with respect to time $\dot V = {\bm s}^T \bm {\dot s}$ follows
+\begin{align}
+\dot V &= {\bm s}^T\bm{\dot  s}\\
+&=s_1\dot s_1+s_2\dot s_2\\
+&=s_1(f_1(\bm x)+g_1(\bm x)+b_1(\bm x)u_1+\alpha_1\vert x_1\vert^{\alpha_1-1}x_2+3x_1^2x_2-x_4)\\
+&\quad +s_2(f_2(\bm x)+g_2(\bm x)+b_2(\bm x)u_2+\alpha_2\vert x_3\vert^{\alpha_2-1}x_4+3x_3^2x_4+x_2)\label{eq:V_1}
+\end{align}
+By substituting inputs (\ref{eq:dual sliding manifold}) in Eq. (\ref{eq:V_1}) yeilds
+\begin{align}
+\dot V &= s_1(-k_1sgn(s_1)+g_1(\bm x))+s_2(-k_2sgn(s_2)+g_2(\bm x))\\
+&= -\eta_1s_1sgn(s_1)-\eta_2s_2sgn(s_2)+(g_1(\bm x)s_1 - l_1s_1sgn(s_1))+(g_2(\bm x)s_2 - l_2s_2sgn(s_2))\\
+&= -\eta_1\vert s_1\vert-\eta_2\vert s_2\vert+(g_1(\bm x)s_1 - l_1\vert s_1\vert)+(g_2(\bm x)s_2 - l_2\vert s_2\vert)\\
+&\le - \min(\eta_1,\eta_2)(\vert s_1\vert+\vert s_2\vert)\\
+&\le -\min(\eta_1,\eta_2)({\bm s}^T\bm s)^\frac{1}{2}\\
+&\le -\sqrt{2}\min(\eta_1,\eta_2)V^\frac{1}{2}\le 0
+\end{align}
+Hence, the system (\ref{eq:four order system}) asymptotically converges to the desired manifold (\ref{eq:dual sliding manifold}), and incidentally the convergent time can be calculated according to the finite time convergence theory. 
+\end{proof}
+\section{Acknowledgment}
+This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503097).
+\section{References}
+\bibliography{paper3_ref}
+\bibliographystyle{elsarticle-num}
+\end{document}
