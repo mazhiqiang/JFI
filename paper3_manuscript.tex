@@ -35,49 +35,123 @@
 \section{Dual sliding mode control}
 Consider a four-order nominal nonlinear system:
 \begin{align}
+\begin{split}
 \dot x_1(t) &= x_2(t)\\
 \dot x_2(t) &= f_1(\bm x,t)+g_1(\bm x,t)+b_1(\bm x,t)u_1(t)\\
 \dot x_3(t) &= x_4(t)\\
-\dot x_5(t) &= f_2(\bm x,t)+g_2(\bm x,t)+b_2(\bm x,t)u_2(t)\label{eq:four order system}
+\dot x_5(t) &= f_2(\bm x,t)+g_2(\bm x,t)+b_2(\bm x,t)u_2(t),\label{eq:four order system}
+\end{split}
 \end{align}
 where $bm x = [x_1,x_2,x_3,x_4]^T$ is the system vector state; $f(\bm x,t)$ and $b(\bm x,t)\neq 0$ are smooth nonlinear functions with respect to $\bm x$; $u_i(t)$, $i=1,2$ stands for the scalar input; $g_i(\bm x,t)$, $i=1,2$  is a defined as a bounded nonlinear function which satisfies $\Vert g_i(\bm x,t)\Vert\le l_i$, $l_i>0$, meaning the uncertainty and disturbance of the system. For the system mentioned above, we can establish a desired dual sliding manifold as:
 \begin{align}
-\bm s(t) = [s_1(t),s_2(t)]^T
+\bm s(t) = [s_1(t),s_2(t)]^T,
 \end{align}
 where
 \begin{align}
-s_1(t) = x_2(t)+\vert x_1(t)\vert^{\alpha_1} sgn(x_1(t))+x_1^3(t)-x_3(t)\\
-s_2(t) = x_4(t)+\vert x_3(t)\vert^{\alpha_2} sgn(x_3(t))+x_3^3(t)+x_1(t)\label{eq:dual sliding manifold}
+\begin{split}
+s_1(t) &= x_2(t)+\vert x_1(t)\vert^{\alpha} sgn(x_1(t))+x_1^3(t)-x_3(t)\\
+s_2(t) &= x_4(t)+\vert x_3(t)\vert^{\alpha} sgn(x_3(t))+x_3^3(t)+x_1(t),\label{eq:dual sliding manifold}
+\end{split}
 \end{align}
-where $sgn(x)$ is the sign function, and $0<\alpha_i<1$. For the sake of simplicity, the symbol $t$ is usually omitting in this paper, which does not cause any confusion, and it will appear once the derivation concerns for the factor of the time strictly, i.e., the desired sliding manifold $\bm s(t)$ is often abbreviated to $\bm s$.\par
-Dual sliding mode control inputs can be given according the following theorem.
-\begin{mythm}
-The four-order system (\ref{eq:four order system}) will reach the desired manifold $\bm s = 0$ shown in Eq. (\ref{eq:dual sliding manifold}) in finite time. The states of the system will converge to zero along the manifold $\bm s=0$ in finite time, if the inputs are designed as follows:
+where $sgn(x)$ is the sign function, and $0<\alpha<1$ is a positive constant. For the sake of simplicity, the symbol $t$ is usually omitting in this paper, which does not cause any confusion, and it will appear once the derivation concerns for the factor of the time strictly, i.e., the desired sliding manifold $\bm s(t)$ is often abbreviated to $\bm s$.\par
+There exist two lemmas about the finite convergence theory, providing convergent forms which contribute to the verification of the finite convergence about the dual sliding mode control.
+\begin{mylem}
+As described in \cite{moulay2006finite}, it is assumed that the continuous function $V(t)$ is positive-define, satisfying the following condition:
 \begin{align}
-u_1 = -b_1(\bm x)^{-1}(f_1(\bm x)+\alpha_1\vert x_1\vert^{\alpha_1-1}x_2+3x_1^2x_2-x_4+k_1sgn(s_1))\\
-u_2 = -b_2(\bm x)^{-1}(f_2(\bm x)+\alpha_2\vert x_3\vert^{\alpha_2-1}x_4+3x_3^2x_4+x_2+k_2sgn(s_2))
+\dot V(t)\le -dV^\beta(t)\quad\forall t\ge t_0, V(t_0)\ge 0,
 \end{align}
-where $k_i = l_i+\eta_i$, $i=1,2$ , $\eta_i>0$ is a positive scalar value.
+where $d$ is a positive scalar, and $0<\beta<1$. Then the function $V(t)$ can converge to the origin for any given $t_0$, and typically the finite convergent time $t_r$ can be given as follows:
+\begin{align}
+t_r \le t_0+\frac{V^{1-\beta}(t_0)}{d(1-\beta)}.
+\end{align}\label{lemma:1}
+\end{mylem}
+\begin{mylem}
+Considering a two-order system:
+\begin{align}
+\dot x_1&=-\vert x_1\vert^\alpha sgn(x_1)-x_1^3+x_2\\
+\dot x_2&=-\vert x_2\vert^\alpha sgn(x_3)-x_2^3-x_1.\label{eq:normal sliding manifold}
+\end{align}\par
+Selecting $V(t) = \frac{x_1^2+x_2^2}{2}$ obtains the finite convergent time as follows \cite{moulay2006finite}:
+%since $\vert x\vert-x^\alpha+\vert x\vert \ge 0,0<\alpha<1$
+\begin{align}
+%t_s\le t_0+\frac{2(x_1^2+x_2^2)^{1-\alpha}}{1-\alpha}
+t_s\le t_0+\frac{(2V(t_0))^{\frac{1-\alpha}{2}}}{1-\alpha},
+\end{align}
+where the definitions of  $t_s$, $t_0$, $\alpha$ are similar to Lemma \ref{lemma:1}. Introducing the amplitude scalar $d$ into the Eqs.~(\ref{eq:normal sliding manifold}) obtains  more normal forms:
+\begin{align}
+\dot x_1&=-d(\vert x_1\vert^\alpha sgn(x_1)-x_1^3+x_2)\\
+\dot x_2&=-d(\vert x_2\vert^\alpha sgn(x_2)-x_2^3-x_1),\label{eq:more normal sliding manifold}
+\end{align}
+the convergent time of which is 
+\begin{align}
+t_s\le t_0+\frac{(2V(t_0))^{\frac{1-\alpha}{2}}}{d(1-\alpha)}.
+\end{align}\label{lemma:2}
+\end{mylem}
+For stabilization of the four-order system shown as~Eq. (\ref{eq:four order system}), dual sliding mode control inputs can be given according the following theorem.
+\begin{mythm}\label{theorem:1}Dual Sliding Mode (DSM) Control Design. 
+The four-order system (\ref{eq:four order system}) will reach the desired manifold $\bm s = 0$ shown in~Eq. (\ref{eq:dual sliding manifold}) in finite time. The states of the system will converge to zero along the manifold $\bm s=0$ in finite time, if the inputs are designed as follows:
+\begin{align}
+u_1 &= -b_1(\bm x)^{-1}(f_1(\bm x)+\alpha\vert x_1\vert^{\alpha-1}x_2+3x_1^2x_2-x_4+k_1sgn(s_1))\\
+u_2 &= -b_2(\bm x)^{-1}(f_2(\bm x)+\alpha\vert x_3\vert^{\alpha-1}x_4+3x_3^2x_4+x_2+k_2sgn(s_2)),
+\end{align}
+where $k_i = l_i+\eta_i$, $i=1,2$; $\eta_i>0$ is a positive scalar value.
 \end{mythm}
 \begin{proof}
 Consider the Lyapunov function $V=\frac{1}{2}{\bm s}^T\bm s$, the derivative of which with respect to time $\dot V = {\bm s}^T \bm {\dot s}$ follows
 \begin{align}
+\begin{split}
 \dot V &= {\bm s}^T\bm{\dot  s}\\
 &=s_1\dot s_1+s_2\dot s_2\\
-&=s_1(f_1(\bm x)+g_1(\bm x)+b_1(\bm x)u_1+\alpha_1\vert x_1\vert^{\alpha_1-1}x_2+3x_1^2x_2-x_4)\\
-&\quad +s_2(f_2(\bm x)+g_2(\bm x)+b_2(\bm x)u_2+\alpha_2\vert x_3\vert^{\alpha_2-1}x_4+3x_3^2x_4+x_2)\label{eq:V_1}
+&=s_1(f_1(\bm x)+g_1(\bm x)+b_1(\bm x)u_1+\alpha\vert x_1\vert^{\alpha-1}x_2+3x_1^2x_2-x_4)\\
+&\quad +s_2(f_2(\bm x)+g_2(\bm x)+b_2(\bm x)u_2+\alpha\vert x_3\vert^{\alpha-1}x_4+3x_3^2x_4+x_2).\label{eq:V_1}
+\end{split}
 \end{align}
-By substituting inputs (\ref{eq:dual sliding manifold}) in Eq. (\ref{eq:V_1}) yeilds
-\begin{align}
+Substituting inputs (\ref{eq:dual sliding manifold}) in~Eq. (\ref{eq:V_1}) yields
+\begin{align*}
 \dot V &= s_1(-k_1sgn(s_1)+g_1(\bm x))+s_2(-k_2sgn(s_2)+g_2(\bm x))\\
 &= -\eta_1s_1sgn(s_1)-\eta_2s_2sgn(s_2)+(g_1(\bm x)s_1 - l_1s_1sgn(s_1))+(g_2(\bm x)s_2 - l_2s_2sgn(s_2))\\
 &= -\eta_1\vert s_1\vert-\eta_2\vert s_2\vert+(g_1(\bm x)s_1 - l_1\vert s_1\vert)+(g_2(\bm x)s_2 - l_2\vert s_2\vert)\\
 &\le - \min(\eta_1,\eta_2)(\vert s_1\vert+\vert s_2\vert)\\
 &\le -\min(\eta_1,\eta_2)({\bm s}^T\bm s)^\frac{1}{2}\\
-&\le -\sqrt{2}\min(\eta_1,\eta_2)V^\frac{1}{2}\le 0
+&\le -\sqrt{2}\min(\eta_1,\eta_2)V^\frac{1}{2}\le 0.
+\end{align*}
+Hence, the system (\ref{eq:four order system}) asymptotically converges to the desired manifold (\ref{eq:dual sliding manifold}), and incidentally the convergent time can be calculated according to the finite time convergence theory.\par
+Once the system (\ref{eq:four order system}) reaches the desired manifold~(\ref{eq:dual sliding manifold}), the whole system is handled by the reduced system:
+\begin{align*}
+\dot x_1&=-\vert x_1\vert^\alpha sgn(x_1)-x_1^3+x_3\\
+\dot x_3&=-\vert x_3\vert^\alpha sgn(x_3)-x_3^3-x_1.
+\end{align*}\par
+The total convergent time can be calculated by dividing the convergence into two phase with respect to the relation between the system and the manifold, namely, the approaching phase and the sliding phase, and specifically, according to Lemma \ref{lemma:2}, the total finite convergent time $t_f$ can be given out directly:
+\begin{align}
+t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{1-\alpha}}_{t_s}<\infty,
 \end{align}
-Hence, the system (\ref{eq:four order system}) asymptotically converges to the desired manifold (\ref{eq:dual sliding manifold}), and incidentally the convergent time can be calculated according to the finite time convergence theory. 
+where $\hat V(t) = \frac{x_1^2+x_3^2}{2}$ is the Lyapunov function describing the convergent motion of the reduced system. The approaching and sliding time are defined as $t_r$ and $t_s$, respectively. This completes the proof.
 \end{proof}
+On the basis of Theorem \ref{theorem:1}, we can develop the parameters in the manifold to improve the performance, which introduces a modified method for stabilizing the system~(\ref{eq:four order system}), and furthermore this method makes the design of the manifold more flexible. Considering the system~(\ref{eq:four order system}) with the manifold manifold $\bm s = [s_1,s_2]^T$, the details of which can be described by following expressions:
+\begin{align}
+\begin{split}
+s_1(t) &= x_2(t)+\gamma(\vert x_1(t)\vert^{\alpha} sgn(x_1(t))+x_1^3(t))-\lambda x_3(t)\\
+s_2(t) &= x_4(t)+\gamma(\vert x_3(t)\vert^{\alpha} sgn(x_3(t))+x_3^3(t))+\lambda x_1(t),\label{eq:modified dual sliding manifold}
+\end{split}
+\end{align}
+where $\gamma$ is a positive constant and $\lambda\in R$ is a regulable parameter. Hence, the modified dual sliding mode control inputs are formed in the following theorem.
+\begin{mythm}\label{theorem:2}Modified Dual Sliding Mode (MDSM) Control Design.
+The four-order system (\ref{eq:four order system}) will reach the desired manifold $\bm s = 0$ shown in~Eq. (\ref{eq:modified dual sliding manifold}) in finite time. The states of the system will converge to zero along the manifold $\bm s=0$ in finite time, if the inputs are designed as follows:
+\begin{align}
+u_1 &= -b_1(\bm x)^{-1}(f_1(\bm x)+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\gamma x_1^2x_2-\lambda x_4+k_1sgn(s_1))\\
+u_2 &= -b_2(\bm x)^{-1}(f_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2+k_2sgn(s_2)),
+\end{align}
+where $k_i = l_i+\eta_i$, $i=1,2$; $\eta_i>0$ is a positive scalar value. The total finite convergent time can be described as:
+\begin{align}
+t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{\gamma(1-\alpha)}}_{t_s}<\infty,
+\end{align}
+\end{mythm}
+\begin{proof}
+The proof is similar to Theorem \ref{theorem:1}, hence it's omitted here.
+\end{proof}
+\begin{myrem}
+Design a terminal sliding mode controller for the four-order system~(\ref{eq:four order system}), and theoretically, the finite convergent time can be calculated by applying the techniques mentioned in \cite{feng2013nonsingular}.
+\end{myrem}
 \section{Acknowledgment}
 This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503097).
 \section{References}
