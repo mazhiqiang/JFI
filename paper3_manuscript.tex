@@ -82,13 +82,13 @@ where the definitions of  $t_s$, $t_0$, $\alpha$ are similar to Lemma \ref{lemma
 \dot x_1&=-d(\vert x_1\vert^\alpha sgn(x_1)-x_1^3+x_2)\\
 \dot x_2&=-d(\vert x_2\vert^\alpha sgn(x_2)-x_2^3-x_1),\label{eq:more normal sliding manifold}
 \end{align}
-the convergent time of which is 
+the convergent time of which is
 \begin{align}
 t_s\le t_0+\frac{(2V(t_0))^{\frac{1-\alpha}{2}}}{d(1-\alpha)}.
 \end{align}\label{lemma:2}
 \end{mylem}
 For stabilization of the four-order system shown as~Eq. (\ref{eq:four order system}), dual sliding mode control inputs can be given according the following theorem.
-\begin{mythm}\label{theorem:1}Dual Sliding Mode (DSM) Control Design. 
+\begin{mythm}\label{theorem:1}Dual Sliding Mode (DSM) Control Design.
 The four-order system (\ref{eq:four order system}) will reach the desired manifold $\bm s = 0$ shown in~Eq. (\ref{eq:dual sliding manifold}) in finite time. The states of the system will converge to zero along the manifold $\bm s=0$ in finite time, if the inputs are designed as follows:
 \begin{align}
 u_1 &= -b_1(\bm x)^{-1}(f_1(\bm x)+\alpha\vert x_1\vert^{\alpha-1}x_2+3x_1^2x_2-x_4+k_1sgn(s_1))\\
@@ -143,12 +143,15 @@ u_2 &= -b_2(\bm x)^{-1}(f_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\ga
 \end{align}
 where $k_i = l_i+\eta_i$, $i=1,2$; $\eta_i>0$ is a positive scalar value. The total finite convergent time can be described as:
 \begin{align}
-t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{\gamma(1-\alpha)}}_{t_s}<\infty,
+t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{\gamma(1-\alpha)}}_{t_s}<\infty,\label{eq:total convergent time}
 \end{align}
 \end{mythm}
 \begin{proof}
 The proof is similar to Theorem \ref{theorem:1}, hence it's omitted here.
 \end{proof}
+\begin{myrem}
+After introducing the parameters $\lambda$ and $\gamma$ into the DSM scheme, the performances of the approaching and sliding phases become regulatable, meaning that these parameters can adjust the convergent time analytically. Although $\lambda$ does not appear in Eq.~(\ref{eq:total convergent time}), the establishment of $V(t_0)$ involves it when the state $\bm x$ has been fixed. Strictly speaking, it affects the approaching distance between $V(t_0)$ and $V(t_r)$, and normally $V(t_r)$ stands for the reaching status at $t_r$, namely, $V(t)=\bm s^T(t)\bm s(t) = 0,\forall t\ge t_r$. 
+\end{myrem}
 \begin{myrem}
 Design a terminal sliding mode controller for the four-order system~(\ref{eq:four order system}), and theoretically, the finite convergent time can be calculated by applying the techniques mentioned in \cite{feng2013nonsingular}.
 \end{myrem}
