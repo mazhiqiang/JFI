@@ -91,8 +91,8 @@ For stabilization of the four-order system shown as~Eq. (\ref{eq:four order syst
 \begin{mythm}\label{theorem:1}Dual Sliding Mode (DSM) Control Design.
 The four-order system (\ref{eq:four order system}) will reach the desired manifold $\bm s = 0$ shown in~Eq. (\ref{eq:dual sliding manifold}) in finite time. The states of the system will converge to zero along the manifold $\bm s=0$ in finite time, if the inputs are designed as follows:
 \begin{align}
-u_1 &= -b_1(\bm x)^{-1}(f_1(\bm x)+\alpha\vert x_1\vert^{\alpha-1}x_2+3x_1^2x_2-x_4+k_1sgn(s_1))\\
-u_2 &= -b_2(\bm x)^{-1}(f_2(\bm x)+\alpha\vert x_3\vert^{\alpha-1}x_4+3x_3^2x_4+x_2+k_2sgn(s_2)),
+u_1 &= -b_1^{-1}(\bm x)(f_1(\bm x)+\alpha\vert x_1\vert^{\alpha-1}x_2+3x_1^2x_2-x_4+k_1sgn(s_1))\\
+u_2 &= -b_2^{-1}(\bm x)(f_2(\bm x)+\alpha\vert x_3\vert^{\alpha-1}x_4+3x_3^2x_4+x_2+k_2sgn(s_2)),
 \end{align}
 where $k_i = l_i+\eta_i$, $i=1,2$; $\eta_i>0$ is a positive scalar value.
 \end{mythm}
@@ -138,8 +138,10 @@ where $\gamma$ is a positive constant and $\lambda\in R$ is a regulable paramete
 \begin{mythm}\label{theorem:2}Modified Dual Sliding Mode (MDSM) Control Design.
 The four-order system (\ref{eq:four order system}) will reach the desired manifold $\bm s = 0$ shown in~Eq. (\ref{eq:modified dual sliding manifold}) in finite time. The states of the system will converge to zero along the manifold $\bm s=0$ in finite time, if the inputs are designed as follows:
 \begin{align}
-u_1 &= -b_1(\bm x)^{-1}(f_1(\bm x)+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\gamma x_1^2x_2-\lambda x_4+k_1sgn(s_1))\\
-u_2 &= -b_2(\bm x)^{-1}(f_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2+k_2sgn(s_2)),
+\begin{split}
+u_1 &= -b_1^{-1}(\bm x)(f_1(\bm x)+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\gamma x_1^2x_2-\lambda x_4+k_1sgn(s_1))\\
+u_2 &= -b_2^{-1}(\bm x)(f_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2+k_2sgn(s_2)),\label{eq:modified input}
+\end{split}
 \end{align}
 where $k_i = l_i+\eta_i$, $i=1,2$; $\eta_i>0$ is a positive scalar value. The total finite convergent time can be described as:
 \begin{align}
@@ -149,12 +151,60 @@ t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_
 \begin{proof}
 The proof is similar to Theorem \ref{theorem:1}, hence it's omitted here.
 \end{proof}
+After introducing the parameters $\lambda$ and $\gamma$ into the DSM scheme, the performances of the approaching and sliding phases become regulatable, meaning that these parameters can adjust the convergent time analytically. Although $\lambda$ does not appear in Eq.~(\ref{eq:total convergent time}), the establishment of $V(t_0)$ involves it when the state $\bm x(t_0)$ has been fixed. Strictly speaking, it affects the approaching distance between $V(t_0)$ and $V(t_r)$, and normally $V(t_r)$ stands for the reaching status at $t_r$, namely, $V(t)=\bm s^T(t)\bm s(t) = 0,\forall t\ge t_r$. Admittedly, the variety of $\lambda$ is only modestly helpful in this approaching time regulation due to its limited effect on $V(t_0)$. $\eta$ is said to be an ''approaching speed'' according to its function, a suitable selection of which will adjust the approaching time as desired in some extent. Hence, $\lambda$ cooperates with $\eta$ to manage the approaching status, and by utilizing the similar analysis, owing to $\gamma$ adjusting the speed of sliding phase, it can be defined as the management parameter of the sliding status.
 \begin{myrem}
-After introducing the parameters $\lambda$ and $\gamma$ into the DSM scheme, the performances of the approaching and sliding phases become regulatable, meaning that these parameters can adjust the convergent time analytically. Although $\lambda$ does not appear in Eq.~(\ref{eq:total convergent time}), the establishment of $V(t_0)$ involves it when the state $\bm x$ has been fixed. Strictly speaking, it affects the approaching distance between $V(t_0)$ and $V(t_r)$, and normally $V(t_r)$ stands for the reaching status at $t_r$, namely, $V(t)=\bm s^T(t)\bm s(t) = 0,\forall t\ge t_r$. 
+For the proposed designs, the parameter $\gamma$ can be defined as different scalar for the individual input, if so, one can produce the total convergent time as:
+\begin{align}
+t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{\min(\gamma_1,\gamma_2)(1-\alpha)}}_{t_s}<\infty,\label{eq:normal total convergent time}
+\end{align}
+with $\gamma_i$ corresponding to the original parameter $\gamma$ in input $u_i$.
 \end{myrem}
-\begin{myrem}
-Design a terminal sliding mode controller for the four-order system~(\ref{eq:four order system}), and theoretically, the finite convergent time can be calculated by applying the techniques mentioned in \cite{feng2013nonsingular}.
-\end{myrem}
+The finite convergence of the DSM and MDSM scheme has been verified clearly, but similar to the conventional terminal sliding mode control, there exists another obstacle in the design mentioned above, namely, the issue of the singularity in control inputs. Essentially, the singularity occurs in Eq.~(\ref{eq:modified input}) when $x_1=0$ but $x_2\neq 0$ in $u_1$ (the phenomena happens to $u_2$ under the same condition). For coping with the singularity, a nonsingular MDSM scheme is presented after introducing an analytical technique into the MDSM scheme based on the following lemma \cite{feng2013nonsingular}.
+\begin{mylem}\label{lemma:3}
+Considering the four-order system (\ref{eq:four order system}), the terminal sliding mode manifold can be designed as:
+\begin{align*}
+s_1(t) &= x_2(t)+\gamma_1\vert x_1\vert^{\alpha_1}sgn(x_1)\\
+s_2(t) &= x_4(t)+\gamma_2\vert x_3\vert^{\alpha_2}sgn(x_3),
+\end{align*}
+and nonsingular inputs are given out directly as follows:
+\begin{align*}
+u_1 &= b^{-1}_1(\bm x)(-f_1(\bm x)+sat(u_{f1},u_{s1})-k_1sgn(s_1))\\
+u_2 &= b^{-1}_2(\bm x)(-f_2(\bm x)+sat(u_{f2},u_{s2})-k_2sgn(s_2)),
+\end{align*}
+in which
+\begin{align*}
+u_{f1}&=-\gamma_1\alpha_1\vert x_1\vert^{\alpha_1-1}x_2\\
+u_{f2}&=-\gamma_2\alpha_2\vert x_3\vert^{\alpha_2-1}x_4,
+\end{align*}
+where $sat(u_f,u_s)$ is a saturation function:
+\begin{align}
+sat(u_f,u_s)=
+\begin{cases}
+u_s\quad &u_f\ge u_s\\
+u_f\quad &-u_s\le u_f< u_s\\
+-u_s\quad &u_f\le -u_s
+\end{cases},
+\end{align}
+and $u_s>0$ can be determined according to the requirements of the performance.\par
+Adopting the control scheme mentioned above, the system~(\ref{eq:four order system}) will converge to zero in finite time without any singularity occurring during the regulation process.
+\end{mylem}
+\begin{mythm}
+Consider a four-order system (\ref{eq:four order system}), and for eliminating the singularity in inputs of the MDSM scheme, select a new inputs to complete the nonsingular MDSM scheme. Introducing the saturation terms into the original inputs yields:
+\begin{align}
+u_1 &= -b_1^{-1}(\bm x)(f_1(\bm x)-sat(u_{f1},u_{s1})+3\gamma x_1^2x_2-\lambda x_4+k_1sgn(s_1))\\
+u_2 &= -b_2^{-1}(\bm x)(f_2(\bm x)-sat(u_{f2},u_{s2})+3\gamma x_3^2x_4+\lambda x_2+k_2sgn(s_2)),\label{eq:nonsingular modified input}
+\end{align}
+one can obtain a nonsingular solution to the stabilization of the system~(\ref{eq:four order system}), providing the finite time convergence by using sliding mode technique.
+\end{mythm}
+\begin{proof}
+The proof is similar to the graphical analysis mentioned in \cite{feng2013nonsingular}, and omitted here.
+\end{proof}
+\section{Dual sliding mode control for rigid manipulators}
+In this section, a dual sliding mode control is proposed for the rigid $2$-link robot manipulator
+\begin{align}
+\bm {M(q)\ddot q}+\bm {C(q,\dot q)}+\bm {g(q)}=\bm {\tau}(t)+\bm{d}(t),
+\end{align}
+where $\bm q(t)$ is the $2\times 1$ vector of joint angular position; $\bm {M(q)}$ is the $2\times 2$ inertia matrix; $\bm{C(q,\dot q)}$ denotes the Coriolis and centrifugal forces by using the $n\times1$ vector; $\bm{g(q)}$ stands for the $n\times 1$ gravitational torque; $\bm{\tau}(t)$ is referred to as the joint torques which are the inputs practically; $\bm d(t)$ expresses the $n\times 1$ bounded input disturbances vector.
 \section{Acknowledgment}
 This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503097).
 \section{References}
