@@ -15,8 +15,12 @@
 \newtheorem{myas}{Assumption}
 \newtheorem{mydef}{Definition}
 \newtheorem{mylem}{Lemma}
-\newtheorem{myrem}{Remark}
 \newtheorem{mythm}{Theorem}
+
+%\theoremstyle{remark}
+\theoremstyle{remark}
+\newtheorem{myrem}{Remark}
+
 \begin{document}
 \begin{frontmatter}
 \title{Dual terminal sliding mode control}
@@ -68,8 +72,10 @@ t_r \le t_0+\frac{V^{1-\beta}(t_0)}{d(1-\beta)}.
 \begin{mylem}
 Considering a two-order system:
 \begin{align}
+\begin{split}
 \dot x_1&=-\vert x_1\vert^\alpha sgn(x_1)-x_1^3+x_2\\
 \dot x_2&=-\vert x_2\vert^\alpha sgn(x_3)-x_2^3-x_1.\label{eq:normal sliding manifold}
+\end{split}
 \end{align}\par
 Selecting $V(t) = \frac{x_1^2+x_2^2}{2}$ obtains the finite convergent time as follows \cite{moulay2006finite}:
 %since $\vert x\vert-x^\alpha+\vert x\vert \ge 0,0<\alpha<1$
@@ -188,7 +194,7 @@ u_f\quad &-u_s\le u_f< u_s\\
 and $u_s>0$ can be determined according to the requirements of the performance.\par
 Adopting the control scheme mentioned above, the system~(\ref{eq:four order system}) will converge to zero in finite time without any singularity occurring during the regulation process.
 \end{mylem}
-\begin{mythm}
+\begin{mythm}\label{theorem:3}
 Consider a four-order system (\ref{eq:four order system}), and for eliminating the singularity in inputs of the MDSM scheme, select a new inputs to complete the nonsingular MDSM scheme. Introducing the saturation terms into the original inputs yields:
 \begin{align}
 u_1 &= -b_1^{-1}(\bm x)(f_1(\bm x)-sat(u_{f1},u_{s1})+3\gamma x_1^2x_2-\lambda x_4+k_1sgn(s_1))\\
@@ -225,10 +231,10 @@ With the purpose of simplifying the proceeding derivation, some symbol definitio
 \lceil\bm h(t)\bm p(t)+\bm v(t)\rfloor = (h_1(t)p_1(t)+v_1(t),h_2(t)p_2(t)+v_2(t),\ldots,h_n(t)p_n(t)+v_n(t))^T.
 \end{align*}
 On the basis of the above results, one can design the dual sliding mode scheme for $2$-link robot manipulator by utilizing the following theorem.
-\begin{mythm}
+\begin{mythm}\label{theorem:4}
 For the rigid $2$-link manipulator~(\ref{eq:lagrangian system}), if the dual sliding mode manifold is selected as
 \begin{align}
-\bm s = \dot{\bm \varepsilon}+C_\gamma\lceil\bm{sgn}^\alpha(\bm \varepsilon)+\bm\varepsilon^3\rfloor+C_\lambda{\bm\varepsilon},
+\bm s = \dot{\bm \varepsilon}+C_\gamma\lceil\bm{sgn}^\alpha(\bm \varepsilon)+\bm\varepsilon^3\rfloor+C_\lambda{\bm\varepsilon},\label{eq:lagrangian manifold}
 \end{align}
 where
 \begin{align}
@@ -256,7 +262,7 @@ in which it is assumed that the parameters $\mu_0$, $\mu_1$ and $\mu_2$ are know
 Select the Lyapunov function
 \begin{align}
 V=\frac{1}{2}\bm s^T\bm s,
-\end{align} 
+\end{align}
 the derivative of which can be described as
 \begin{align}
 \begin{split}
@@ -265,10 +271,53 @@ the derivative of which can be described as
 &\quad+C_r\lceil\alpha\vert\bm\varepsilon\vert^{\alpha-1}\dot{\bm \varepsilon}+3\bm \varepsilon^2\dot{\bm \varepsilon}\rfloor+C_\lambda\dot{\bm \varepsilon})\\
 &=\bm s^T(M_0^{-1}(\bm q)(\bm u_0+\bm u_2+\bm\rho(t))+C_r\lceil\alpha\vert\bm\varepsilon\vert^{\alpha-1}\dot{\bm \varepsilon}+3\bm \varepsilon^2\dot{\bm \varepsilon}\rfloor+C_\lambda\dot{\bm \varepsilon})\\
 &=\bm s^TM_0^{-1}(\bm q)(-\frac{(\bm s^TM_0^{-1}(\bm q))^T}{\Vert\bm s^TM_0^{-1}(\bm q)\Vert}(\mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2)+\bm\rho(t))\\
-&\le (\mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2)\Vert M_0^{-1}(\bm q)\Vert\Vert \bm s\Vert
+&\le -(\mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2)\Vert M_0^{-1}(\bm q)\Vert\Vert \bm s\Vert+\Vert\bm\rho(t)\Vert\Vert M_0^{-1}(\bm q)\Vert\Vert \bm s\Vert\\
+&\le -(\mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2-\Vert\bm\rho(t)\Vert)\Vert M_0^{-1}(\bm q)\Vert\Vert \bm s\Vert.
 \end{split}
 \end{align}
+The above result means that
+\begin{align}
+\dot V \le \varrho\Vert\bm s\Vert<0,
+\end{align}
+where
+\begin{align}
+\varrho=(\mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2-\Vert\bm\rho(t)\Vert)\Vert M_0^{-1}(\bm q)\Vert>0
+\end{align}
+and $\Vert\bm s\Vert\neq 0$, hence, the Lyapunov stability has been proved, meaning that the system will reach the desired manifold~(\ref{eq:lagrangian manifold}) in finite time. Once the reaching condition is satisfied, one can achieve a reduced system by substituting $\bm s = 0$ into the system~(\ref{eq:lagrangian system}). It owns the form, similar to Eq.~(\ref{eq:normal sliding manifold}), and therefore, one can adopt Theorem \ref{theorem:2} to drive the reduced system converging to the origin in finite time. The proof is completed.
 \end{proof}
+\begin{myrem}
+At this point, the dual sliding mode control scheme for $2$-link robot manipulator has been demonstrated, and this technique is able to be extended to $n$-link manipulator. Consider a $n$-link robot manipulator in where $n$ is an even number, and the desired sliding manifold can be designed as
+\begin{align}
+\bm s = \dot{\bm \varepsilon}+C_{\gamma n}\lceil\bm{sgn}^\alpha(\bm \varepsilon)+\bm\varepsilon^3\rfloor+C_{\lambda n}{\bm\varepsilon},
+\end{align}
+where
+\begin{align}
+\begin{split}
+&C_{\gamma n}=diag[\gamma_1,\gamma_2,\ldots,\gamma_n]\\
+&C_{\lambda n}=
+\begin{pmatrix}
+\begin{pmatrix}
+0 &-\lambda\\ \lambda &0
+\end{pmatrix} &O_{2\times 2} & & &\\
+O_{2\times 2} &\begin{pmatrix}
+0 &-\lambda\\ \lambda &0
+\end{pmatrix} & & &\\
+& &\ddots & &\\
+& & &\begin{pmatrix}
+0 &-\lambda\\ \lambda &0
+\end{pmatrix} &O_{2\times 2}\\
+& & &O_{2\times 2} &\begin{pmatrix}
+0 &-\lambda\\ \lambda &0
+\end{pmatrix}
+\end{pmatrix}.
+\end{split}
+\end{align}\par
+Referring to Theorem \ref{theorem:4}, one can obtain the dual sliding mode control input for the even $n$-link manipulator. Essentially, this technique requires that the sliding mode manifold has to consist of $n/2$ pairs of individual sliding surfaces, in another words, this design for the manifold can be regarded as a work for yielding manifolds of the $n/2$ sub-systems.\par
+Considering the situation that $n$ is an odd number, the $n$-link manipulator as we know is assumed as a full-actuated system, and hence an individual dimension can be excluded by using conventional terminal sliding mode control, which results in that the remained $n-1$-link manipulator can be controlled by the proposed DSM scheme.
+\end{myrem}
+\begin{myrem}
+The singularity of the DSM scheme for the robot manipulator can be eliminated by using the technique introduced in \ref{theorem:3}.
+\end{myrem}
 \section{Acknowledgment}
 This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503097).
 \section{References}
