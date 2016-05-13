@@ -12,7 +12,7 @@
 \usepackage{amsfonts,amssymb}
 \usepackage{color,soul}
 \theoremstyle{plain}
-\newtheorem{assumption}{Assumption}
+\newtheorem{myas}{Assumption}
 \newtheorem{mydef}{Definition}
 \newtheorem{mylem}{Lemma}
 \newtheorem{myrem}{Remark}
@@ -100,7 +100,7 @@ where $k_i = l_i+\eta_i$, $i=1,2$; $\eta_i>0$ is a positive scalar value.
 Consider the Lyapunov function $V=\frac{1}{2}{\bm s}^T\bm s$, the derivative of which with respect to time $\dot V = {\bm s}^T \bm {\dot s}$ follows
 \begin{align}
 \begin{split}
-\dot V &= {\bm s}^T\bm{\dot  s}\\
+\dot V &= {\bm s}^T\dot{\bm  s}\\
 &=s_1\dot s_1+s_2\dot s_2\\
 &=s_1(f_1(\bm x)+g_1(\bm x)+b_1(\bm x)u_1+\alpha\vert x_1\vert^{\alpha-1}x_2+3x_1^2x_2-x_4)\\
 &\quad +s_2(f_2(\bm x)+g_2(\bm x)+b_2(\bm x)u_2+\alpha\vert x_3\vert^{\alpha-1}x_4+3x_3^2x_4+x_2).\label{eq:V_1}
@@ -202,9 +202,73 @@ The proof is similar to the graphical analysis mentioned in \cite{feng2013nonsin
 \section{Dual sliding mode control for rigid manipulators}
 In this section, a dual sliding mode control is proposed for the rigid $2$-link robot manipulator
 \begin{align}
-\bm {M(q)\ddot q}+\bm {C(q,\dot q)}+\bm {g(q)}=\bm {\tau}(t)+\bm{d}(t),
+M(\bm q)\ddot {\bm q}+C(\bm q,\dot {\bm q})+g(\bm q)= \bm\tau(t)+{\bm d}(t),\label{eq:lagrangian system}
 \end{align}
-where $\bm q(t)$ is the $2\times 1$ vector of joint angular position; $\bm {M(q)}$ is the $2\times 2$ inertia matrix; $\bm{C(q,\dot q)}$ denotes the Coriolis and centrifugal forces by using the $n\times1$ vector; $\bm{g(q)}$ stands for the $n\times 1$ gravitational torque; $\bm{\tau}(t)$ is referred to as the joint torques which are the inputs practically; $\bm d(t)$ expresses the $n\times 1$ bounded input disturbances vector.
+where $\bm q(t) = $ is the $2\times 1$ vector of joint angular position; ${M(\bm q)}$ is the $2\times 2$ inertia matrix; ${C(\bm q,\dot{\bm q})}$ denotes the Coriolis and centrifugal forces by using the $n\times1$ vector; ${g(\bm q)}$ stands for the $n\times 1$ gravitational torque; $\bm{\tau}(t)$ is referred to as the joint torques which are the inputs practically; $\bm d(t)$ expresses the $n\times 1$ bounded input disturbances vector. Normally, there exist some uncertainties in the manipulator, producing the dynamic equations:
+\begin{align}
+(M_0(\bm q)+\Delta {M(\bm q))\ddot {\bm q}}+{C_0(\bm q,\dot {\bm q})+\Delta C(\bm q,\dot {\bm q})}+g_0(\bm q)+\Delta g(\bm q)=\bm {\tau}(t)+\bm{d}(t),
+\end{align}
+where $M_0(\bm q)$, $C_0(\bm q,\dot {\bm q})$ and $g_0(\bm q)$ are the estimated terms affected by the the uncertainties including $M_0(\bm q)$, $C_0(\bm q,\dot {\bm q})$, $g_0(\bm q)$, and the disturbance $\bm{d}(t)$. Particularly, the following assumption is exhibited to explain the bounded characteristics of the robot dynamics \cite{feng2002non}:
+\begin{align*}
+&\Vert M(\bm q)\Vert< \theta_0\\
+&\Vert C(\bm q,\dot {\bm q})\Vert< \phi_0+\phi_1\Vert\bm q\Vert+\phi_2\Vert\dot{\bm q}\Vert^2\\
+&\Vert g(\bm q)\Vert< \psi_0+\psi_1\Vert\bm q\Vert\\
+&\Vert \bm {\rho}(t)\Vert< \mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2,
+\end{align*}
+where $\bm {\rho}(t) = -\Delta M(\bm q)-\Delta C(\bm q,\dot {\bm q})-\Delta g(\bm q)$, and $\theta_0$, $\phi_0$, $\phi_1$, $\phi_2$, $\psi_0$, $\psi_1$, $\mu_0$, $\mu_1$, $\mu_2$ are positive constants.\par
+Select $\bm q_d$ as the desired state of the Lagrangian system~(\ref{eq:lagrangian system}), and the derivative of $\bm q_d$ is designated as $\dot {\bm q}_d$. Hence the state error can be given out intuitively:
+\begin{align}
+\bm \varepsilon = \bm q -\bm q_d
+\end{align}
+With the purpose of simplifying the proceeding derivation, some symbol definitions for vector operating are presented in advance. For expressing the $n$-dimension vector including a sort of compound functions, the following symbol is introduced:
+\begin{align*}
+\lceil\bm h(t)\bm p(t)+\bm v(t)\rfloor = (h_1(t)p_1(t)+v_1(t),h_2(t)p_2(t)+v_2(t),\ldots,h_n(t)p_n(t)+v_n(t))^T.
+\end{align*}
+On the basis of the above results, one can design the dual sliding mode scheme for $2$-link robot manipulator by utilizing the following theorem.
+\begin{mythm}
+For the rigid $2$-link manipulator~(\ref{eq:lagrangian system}), if the dual sliding mode manifold is selected as
+\begin{align}
+\bm s = \dot{\bm \varepsilon}+C_\gamma\lceil\bm{sgn}^\alpha(\bm \varepsilon)+\bm\varepsilon^3\rfloor+C_\lambda{\bm\varepsilon},
+\end{align}
+where
+\begin{align}
+\begin{split}
+&C_\gamma=diag[\gamma_1,\gamma_2]\\
+&C_\lambda=
+\begin{pmatrix}
+0 &-\lambda\\ \lambda &0
+\end{pmatrix}\\
+&{sgn}^\alpha(\varepsilon)=\vert\varepsilon\vert^\alpha sgn(\varepsilon),
+\end{split}
+\end{align}
+furthermore, one can obtain the corresponding input as follows to stabilize the system~(\ref{eq:lagrangian system}) as desired in finite time.
+\begin{align}
+\begin{split}
+\bm\tau &= \bm u_0+\bm u_1 +\bm u_2\\
+\bm u_0 &= -M_0(\bm q)C_r\lceil\alpha\vert\bm\varepsilon\vert^{\alpha-1}\dot{\bm \varepsilon}+3\bm \varepsilon^2\dot{\bm \varepsilon}\rfloor-M_0(\bm q)C_\lambda\dot{\bm \varepsilon}\\
+\bm u_1 &= M_0(\bm q)\ddot {\bm q}_d+C_0(\bm q,\dot {\bm q})+g_0(\bm q)\\
+\bm u_2 &= -\frac{(\bm s^TM_0^{-1}(\bm q))^T}{\Vert\bm s^TM_0^{-1}(\bm q)\Vert}(\mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2).
+\end{split}
+\end{align}
+in which it is assumed that the parameters $\mu_0$, $\mu_1$ and $\mu_2$ are known.
+\end{mythm}
+\begin{proof}
+Select the Lyapunov function
+\begin{align}
+V=\frac{1}{2}\bm s^T\bm s,
+\end{align} 
+the derivative of which can be described as
+\begin{align}
+\begin{split}
+\dot V &= \bm s^T\dot{\bm s}=\bm s^T(\ddot{\bm \varepsilon}+C_r\lceil\alpha\vert\bm\varepsilon\vert^{\alpha-1}\dot{\bm \varepsilon}+3\bm \varepsilon^2\dot{\bm \varepsilon}\rfloor+C_\lambda\dot{\bm \varepsilon})\\
+&=\bm s^T(M_0^{-1}(\bm q)(-M_0(\bm q)\ddot {\bm q}_d-C_0(\bm q,\dot {\bm q})-g_0(\bm q)+\bm\tau+\bm\rho(t))\\
+&\quad+C_r\lceil\alpha\vert\bm\varepsilon\vert^{\alpha-1}\dot{\bm \varepsilon}+3\bm \varepsilon^2\dot{\bm \varepsilon}\rfloor+C_\lambda\dot{\bm \varepsilon})\\
+&=\bm s^T(M_0^{-1}(\bm q)(\bm u_0+\bm u_2+\bm\rho(t))+C_r\lceil\alpha\vert\bm\varepsilon\vert^{\alpha-1}\dot{\bm \varepsilon}+3\bm \varepsilon^2\dot{\bm \varepsilon}\rfloor+C_\lambda\dot{\bm \varepsilon})\\
+&=\bm s^TM_0^{-1}(\bm q)(-\frac{(\bm s^TM_0^{-1}(\bm q))^T}{\Vert\bm s^TM_0^{-1}(\bm q)\Vert}(\mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2)+\bm\rho(t))\\
+&\le (\mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2)\Vert M_0^{-1}(\bm q)\Vert\Vert \bm s\Vert
+\end{split}
+\end{align}
+\end{proof}
 \section{Acknowledgment}
 This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503097).
 \section{References}
