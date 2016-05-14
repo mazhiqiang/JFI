@@ -316,8 +316,22 @@ Referring to Theorem \ref{theorem:4}, one can obtain the dual sliding mode contr
 Considering the situation that $n$ is an odd number, the $n$-link manipulator as we know is assumed as a full-actuated system, and hence an individual dimension can be excluded by using conventional terminal sliding mode control, which results in that the remained $n-1$-link manipulator can be controlled by the proposed DSM scheme.
 \end{myrem}
 \begin{myrem}
-The singularity of the DSM scheme for the robot manipulator can be eliminated by using the technique introduced in \ref{theorem:3}.
+The singularity of the DSM scheme for the robot manipulator can be eliminated by using the technique introduced in Theorem \ref{theorem:3}.
 \end{myrem}
+\begin{myrem}
+One can use the term $x^{a/b}$ instead of $sgn^\alpha(x)$ in the dual sliding mode control mentioned above, where $a$ and $b$ are odd numbers with $0<a/b<1$, as the entire proof maintains available theoretically.
+\end{myrem}
+\section{Simulation studies}
+In this section, two studies will be presented, namely, a verification on the effectiveness of the proposed DSM and MDSM schemes and an application to a manipulator stabilization evaluating the performance of the control schemes.
+\subsection{Effectiveness study}
+For verifying the effectiveness of the DSM control scheme, consider the following four-order nonlinear system with the disturbance:
+\begin{align}
+\dot x_1 &= x_2\\
+\dot x_2 &= x_1^3+0.1\sin(20t)+u_1\\
+\dot x_3 &= x_4\\
+\dot x_4 &= 0.3\sin(3t)+0.5e^{-3t}+u_2,
+\end{align}
+\subsection{Performance of the robot manipulator}
 \section{Acknowledgment}
 This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503097).
 \section{References}
