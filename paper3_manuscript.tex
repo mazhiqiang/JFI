@@ -324,14 +324,56 @@ One can use the term $x^{a/b}$ instead of $sgn^\alpha(x)$ in the dual sliding mo
 \section{Simulation studies}
 In this section, two studies will be presented, namely, a verification on the effectiveness of the proposed DSM and MDSM schemes and an application to a manipulator stabilization evaluating the performance of the control schemes.
 \subsection{Effectiveness study}
-For verifying the effectiveness of the DSM control scheme, consider the following four-order nonlinear system with the disturbance:
+For verifying the effectiveness of the proposed control scheme, consider the following four-order nonlinear system with the disturbance:
 \begin{align}
+\begin{split}
 \dot x_1 &= x_2\\
 \dot x_2 &= x_1^3+0.1\sin(20t)+u_1\\
 \dot x_3 &= x_4\\
-\dot x_4 &= 0.3\sin(3t)+0.5e^{-3t}+u_2,
+\dot x_4 &= 0.3\sin(3t)+0.5e^{-3t}+u_2,\label{eq:simulation four order system}
+\end{split}
 \end{align}
+and one can produce a DSM control scheme conveniently. It is obvious that the disturbance in the system~(\ref{eq:simulation four order system}) behaves bounded, which is said to be the following uncertainty terms:
+\begin{align*}
+\Vert g_1(x,t)\Vert &= \Vert 0.1\sin(20t)\Vert\le 0.1\\
+\Vert g_2(x,t)\Vert &= \Vert 0.3\sin(3t)+0.5e^{-3t}\Vert\le 0.8,
+\end{align*}
+and hence, based on the analysis in Theorem~\ref{theorem:1}, $\eta_1>0.1$ and $\eta_2>0.8$ can be determined accordingly to guarantee the reaching condition of the desired sliding manifold. Also, the inputs $u_1$ and $u_2$ are able to be viewed as virtual input terms which consist of the linear combination of the crucial inputs in system, i.e., for the system~(\ref{eq:simulation four order system}), the input terms can be expressed by $\bm u = \Xi\bm\tau$ particularly, where $\bm u\in R^2$ is the virtual input vector; $\bm \tau\in R^2$ stands for the crucial input vector; $\Xi\in R^{2\times 2}$ must have full rank.
 \subsection{Performance of the robot manipulator}
+In order to evaluate the performance of the proposed control scheme, a simulation about the $2$-link robot manipulator is presented in the following. The dynamics of this manipulator can be explained by the dynamic equations in following forms:
+\begin{align}
+\begin{bmatrix}
+m_{12}(q_2) &m_{12}(q_2)\\
+m_{21}(q_2) &m_{22}
+\end{bmatrix}
+\begin{pmatrix}
+\ddot q_1\\
+\ddot q_2
+\end{pmatrix}
++
+\begin{bmatrix}
+-c(q_2)\dot q_1^2-2c(q_2)\dot q_1\dot q_2\\
+c(q_2)\dot q_2^2
+\end{bmatrix}+
+\begin{bmatrix}
+\xi_1(q_1,q_2) g\\
+\xi_2(q_1,q_2) g
+\end{bmatrix}=
+\begin{pmatrix}
+\tau_1\\
+\tau_2
+\end{pmatrix},
+\end{align}
+where
+\begin{align*}
+&m_{11}(q_2)=(m_1+m_2)r_1^2+m_2r_2^2+2m_2r_1r_2\cos(q_2)+J_1,\\
+&m_{12}(q_2)=m_2r_2^2+m_2r_1r_2\cos(q_2),\\
+&m_{21}(q_2)=m_{12}(q_2),\\
+&m_{22}=m_2r_2^2+J_2,\\
+&c(q_2)=m_2r_1r_2\sin(q_2),\\
+&\xi_1(q_1,q_2) =((m_1+m_2)r_1\cos(q_2)+m_2r_2\cos(q_1+q_2)),\\
+&\xi_2(q_1,q_2) = m_2r_2\cos(q_1+q_2).
+\end{align*}
 \section{Acknowledgment}
 This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503097).
 \section{References}
