@@ -215,12 +215,12 @@ where $\bm q(t) = $ is the $2\times 1$ vector of joint angular position; ${M(\bm
 (M_0(\bm q)+\Delta {M(\bm q))\ddot {\bm q}}+{C_0(\bm q,\dot {\bm q})+\Delta C(\bm q,\dot {\bm q})}+g_0(\bm q)+\Delta g(\bm q)=\bm {\tau}(t)+\bm{d}(t),
 \end{align}
 where $M_0(\bm q)$, $C_0(\bm q,\dot {\bm q})$ and $g_0(\bm q)$ are the estimated terms affected by the the uncertainties including $M_0(\bm q)$, $C_0(\bm q,\dot {\bm q})$, $g_0(\bm q)$, and the disturbance $\bm{d}(t)$. Particularly, the following assumption is exhibited to explain the bounded characteristics of the robot dynamics \cite{feng2002non}:
-\begin{align*}
-&\Vert M(\bm q)\Vert< \theta_0\\
-&\Vert C(\bm q,\dot {\bm q})\Vert< \phi_0+\phi_1\Vert\bm q\Vert+\phi_2\Vert\dot{\bm q}\Vert^2\\
-&\Vert g(\bm q)\Vert< \psi_0+\psi_1\Vert\bm q\Vert\\
-&\Vert \bm {\rho}(t)\Vert< \mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2,
-\end{align*}
+\begin{align}
+&\Vert M(\bm q)\Vert< \theta_0\notag\\
+&\Vert C(\bm q,\dot {\bm q})\Vert< \phi_0+\phi_1\Vert\bm q\Vert+\phi_2\Vert\dot{\bm q}\Vert^2\notag\\
+&\Vert g(\bm q)\Vert< \psi_0+\psi_1\Vert\bm q\notag\Vert
+&\Vert \bm {\rho}(t)\Vert< \mu_0+\mu_1\Vert\bm q\Vert+\mu_2\Vert\dot{\bm q}\Vert^2,\label{eq:manipulator uncertainty}
+\end{align}
 where $\bm {\rho}(t) = -\Delta M(\bm q)-\Delta C(\bm q,\dot {\bm q})-\Delta g(\bm q)$, and $\theta_0$, $\phi_0$, $\phi_1$, $\phi_2$, $\psi_0$, $\psi_1$, $\mu_0$, $\mu_1$, $\mu_2$ are positive constants.\par
 Select $\bm q_d$ as the desired state of the Lagrangian system~(\ref{eq:lagrangian system}), and the derivative of $\bm q_d$ is designated as $\dot {\bm q}_d$. Hence the state error can be given out intuitively:
 \begin{align}
@@ -398,7 +398,9 @@ where
 &\xi_1(q_1,q_2) =(m_1+m_2)r_1\cos(q_2)+m_2r_2\cos(q_1+q_2),\\
 &\xi_2(q_1,q_2) = m_2r_2\cos(q_1+q_2).
 \end{align*}\par
-The values of the parameters are listed here, $r_1=1m$, $r_2=0.8m$, $J_1=5 kgm$, $J_2=5kgm$, $m_1=0.5kg$, $m_2=1.5kg$.
+The values of the parameters are listed here, $r_1=1m$, $r_2=0.8m$, $J_1=5 kgm$, $J_2=5kgm$, $m_1=0.5kg$, $m_2=1.5kg$. In this model, the uncertainty is brought in by estimated terms, namely, $\bar m_1=0.4$ and $\bar m_2=1.2$ which are all not the actuate value obviously. In addition, owing to that it sits on many terms in the dynamic equations, it's a severe challenge to guarantee the performance. Accordingly, the uncertainty parameters in Eq.~(\ref{eq:manipulator uncertainty}) are assumed to be $\mu_0=10$, $\mu_1=3$, $\mu_2=3$.\par
+This section will give a set of simulation to examine the performance of the MDSM control in tracking the certain angle condition. The behavior of the manipulator should fulfill the initial and desired condition, namely, $(\bm q_0^T, \dot{\bm q}_0^T)= (0.3,0.2,0,0)$ and $({\bm q}_d^T,\dot{\bm q}_d^T)=(1,1,0,0)$. In order to ensure the stability and a fast convergent speed, the control parameters are chosen conservatively to make the manipulator track the desired attitude in finite time, and these parameters are $\alpha = 0.6$, $\gamma = 1$, $\lambda = 0.1$, $\eta = 100$. The terminal sliding mode control (TSM) scheme, as a comparison, is also implemented to regulate the behavior of the manipulator, the main control parameters of which are selected as $\alpha = 0.6$, $\gamma = 5$ and $\eta = 150$ to get a fairly good control performance.\par
+The performance of the controllers mentioned above is illustrated in Figure~\ref{Figure:4} and Figure~\ref{Figure:5}.
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig4.eps}
