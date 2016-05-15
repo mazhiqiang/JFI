@@ -319,7 +319,7 @@ Considering the situation that $n$ is an odd number, the $n$-link manipulator as
 The singularity of the DSM scheme for the robot manipulator can be eliminated by using the technique introduced in Theorem \ref{theorem:3}.
 \end{myrem}
 \begin{myrem}
-One can use the term $x^{a/b}$ instead of $sgn^\alpha(x)$ in the dual sliding mode control mentioned above, where $a$ and $b$ are odd numbers with $0<a/b<1$, as the entire proof maintains available theoretically.
+One can use the term $x^{a/b}$ instead of $sgn^\alpha(x)$ in the dual sliding mode control mentioned above, where $a$ and $b$ are odd numbers with $0<a/b<1$, as the entire proof maintains available theoretically. For handling the chattering, the $sign()$ can be replaced with $sat(x,\delta)$, and the bounded value $\delta$ is determined according to actual needs.
 \end{myrem}
 \section{Simulation studies}
 In this section, two studies will be presented, namely, a verification on the effectiveness of the proposed DSM and MDSM schemes and an application to a manipulator stabilization evaluating the performance of the control schemes.
@@ -333,14 +333,38 @@ For verifying the effectiveness of the proposed control scheme, consider the fol
 \dot x_4 &= 0.3\sin(3t)+0.5e^{-3t}+u_2,\label{eq:simulation four order system}
 \end{split}
 \end{align}
-and one can produce a DSM control scheme conveniently. It is obvious that the disturbance in the system~(\ref{eq:simulation four order system}) behaves bounded, which is said to be the following uncertainty terms:
+and one can produce a MDSM control scheme conveniently. It is obvious that the disturbance in the system~(\ref{eq:simulation four order system}) behaves bounded, which is said to be the following uncertainty terms:
 \begin{align*}
 \Vert g_1(x,t)\Vert &= \Vert 0.1\sin(20t)\Vert\le 0.1\\
 \Vert g_2(x,t)\Vert &= \Vert 0.3\sin(3t)+0.5e^{-3t}\Vert\le 0.8,
 \end{align*}
-and hence, based on the analysis in Theorem~\ref{theorem:1}, $\eta_1>0.1$ and $\eta_2>0.8$ can be determined accordingly to guarantee the reaching condition of the desired sliding manifold. Also, the inputs $u_1$ and $u_2$ are able to be viewed as virtual input terms which consist of the linear combination of the crucial inputs in system, i.e., for the system~(\ref{eq:simulation four order system}), the input terms can be expressed by $\bm u = \Xi\bm\tau$ particularly, where $\bm u\in R^2$ is the virtual input vector; $\bm \tau\in R^2$ stands for the crucial input vector; $\Xi\in R^{2\times 2}$ must have full rank.
+and hence, based on the analysis in Theorem~\ref{theorem:1}, $\eta_1>0.1$ and $\eta_2>0.8$ can be determined accordingly to guarantee the reaching condition of the desired sliding manifold. Also, the inputs $u_1$ and $u_2$ are able to be viewed as virtual input terms which consist of the linear combination of the crucial inputs in system, i.e., for the system~(\ref{eq:simulation four order system}), the input terms can be expressed by $\bm u = \Xi\bm\tau$ particularly, where $\bm u\in R^2$ is the virtual input vector; $\bm \tau\in R^2$ stands for the crucial input vector; $\Xi\in R^{2\times 2}$ must have full rank.\par
+The system is supposed to be conducted to the desired state $\bm x_d=(0,0,0,0)$ from a prescript state $\bm x_0=(1.2,1.2,1.2,1.2)$. Admittedly, this prescript condition leads to a lager initial approaching distance due to the existence of the cubic terms $\gamma x^3$ in the sliding manifold, therefore a large approaching speed $k_i$ is required correspondingly. The control parameters are chosen as: $\alpha = 0.6$, $\lambda = 0.5$, $\gamma = 3$ and $\eta = 20$. Besides the large approaching speed selected, $\gamma$ accelerates the sliding phase indirectly. Therefore the design of the MDSM controller for the system~(\ref{eq:simulation four order system}) is finished, and the corresponding simulation results are illustrated in Figure~\ref{Figure:2} and Figure~\ref{Figure:3}.\par
+From Figure~\ref{Figure:2}, it's apparent that the states converge to their desired states. Figure~\ref{Figure:3} demonstrates the inputs, the amplitudes of which are closely related to $\eta$, for the purpose of avoiding the largely chattering caused by $\eta$, the saturation function $sat()$ is applied to take place of $sign()$ to absorb it. Also, although the states have be adjusted to the origin and stay there in subsequent time, one can find that the inputs don't maintain constant but fluctuate in a certain range. The nature of the situation mention above is the input compensating the error caused by the distance.\par
+At this point, some effectiveness of the MDSM control scheme proposed above has been verified, and in the next section, we will apply it to stabilize the behavior of a $2$-link robot manipulator directly.
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{paper3_fig2.eps}
+\caption{1}
+\label{Figure:2}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{paper3_fig3.eps}
+\caption{2}
+\label{Figure:3}
+\end{figure}
 \subsection{Performance of the robot manipulator}
-In order to evaluate the performance of the proposed control scheme, a simulation about the $2$-link robot manipulator is presented in the following. The dynamics of this manipulator can be explained by the dynamic equations in following forms:
+In order to evaluate the performance of the proposed control scheme, a simulation about the $2$-link robot manipulator is presented in the following context. Figure~\ref{Figure:1} is the $2$-link manipulator schematic, the dynamics of which can be explained by the dynamic equations in following forms:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{paper3_fig1.eps}
+\caption{2}
+\label{Figure:1}
+\end{figure}
+
 \begin{align}
 \begin{bmatrix}
 m_{12}(q_2) &m_{12}(q_2)\\
@@ -371,10 +395,37 @@ where
 &m_{21}(q_2)=m_{12}(q_2),\\
 &m_{22}=m_2r_2^2+J_2,\\
 &c(q_2)=m_2r_1r_2\sin(q_2),\\
-&\xi_1(q_1,q_2) =((m_1+m_2)r_1\cos(q_2)+m_2r_2\cos(q_1+q_2)),\\
+&\xi_1(q_1,q_2) =(m_1+m_2)r_1\cos(q_2)+m_2r_2\cos(q_1+q_2),\\
 &\xi_2(q_1,q_2) = m_2r_2\cos(q_1+q_2).
 \end{align*}\par
 The values of the parameters are listed here, $r_1=1m$, $r_2=0.8m$, $J_1=5 kgm$, $J_2=5kgm$, $m_1=0.5kg$, $m_2=1.5kg$.
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{paper3_fig4.eps}
+\caption{2}
+\label{Figure:4}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{paper3_fig5.eps}
+\caption{2}
+\label{Figure:5}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{paper3_fig6.eps}
+\caption{2}
+\label{Figure:6}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{paper3_fig7.eps}
+\caption{2}
+\label{Figure:7}
+\end{figure}
 \section{Acknowledgment}
 This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503097).
 \section{References}
