@@ -31,7 +31,7 @@
 \address{Research Institute of Intelligent Control and Systems, Harbin Institute of Technology, Harbin 150001, China}
 
 \begin{abstract}
-This paper proposes a novel dual terminal sliding mode control for rigid robotic manipulator. A new terminal sliding mode manifold design technique is addressed to achieve finite time convergence of the sliding phase, and furthermore utilizing the involved dual variables combines the individual sliding mode surfaces to obtain a integral sliding mode dynamics, the convergent time of which is also integral for the entire system. The newly proposed method also has the characteristics of nonsingularity and chattering suppression, and the effectiveness and high efficiency are verified by stabilizing the motion of the rigid robotic manipulator. Simulation results validate the theoretical analysis about the proposed method. 
+This paper proposes a novel dual terminal sliding mode control for rigid robotic manipulator. A new terminal sliding mode manifold design technique is addressed to achieve finite time convergence of the sliding phase, and furthermore utilizing the involved dual variables combines the individual sliding mode surfaces to obtain a integral sliding mode dynamics, the convergent time of which is also integral for the entire system. The newly proposed method also has the characteristics of nonsingularity and chattering suppression, and the effectiveness and high efficiency are verified by stabilizing the motion of the rigid robotic manipulator. Simulation results validate the theoretical analysis about the proposed method.
 \end{abstract}
 \begin{keyword}
 Finite time control; Robotic manipulator control; Terminal sliding mode; Sliding mode manifold design; Stability analysis
@@ -352,14 +352,14 @@ At this point, some effectiveness of the MDTSM control scheme proposed above has
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig2.eps}
-\caption{1}
+\caption{Phase space trajectory}
 \label{Figure:2}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig3.eps}
-\caption{2}
+\caption{System inputs}
 \label{Figure:3}
 \end{figure}
 \subsection{Performance of the robotic manipulator}
@@ -368,7 +368,7 @@ In order to evaluate the performance of the proposed control scheme, a simulatio
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{paper3_fig1.eps}
-\caption{2}
+\caption{$2$-link manipulator schematic}
 \label{Figure:1}
 \end{figure}
 
@@ -421,14 +421,14 @@ The performance of the controllers mentioned above is illustrated in Figure~\ref
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig4.eps}
-\caption{2}
+\caption{Response of $q_1$ channel}
 \label{Figure:4}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig5.eps}
-\caption{2}
+\caption{Response of $q_2$ channel}
 \label{Figure:5}
 \end{figure}
 The more general case, the robotic manipulator is usually required to track variable signal, is discussed in this section. Particularly, one can continue to use the parameters of the controller mentioned above, and the mission condition is changed as follows:
@@ -440,14 +440,14 @@ The simulation results are demonstrated in Figure~\ref{Figure:6} and Figure~\ref
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig6.eps}
-\caption{2}
+\caption{Tracking performance of $q_1$ channel}
 \label{Figure:6}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig7.eps}
-\caption{2}
+\caption{Tracking performance of $q_2$ channel}
 \label{Figure:7}
 \end{figure}
 \section{Conclusion}\label{sec:5}
