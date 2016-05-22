@@ -222,19 +222,49 @@ Consider a nonlinear system described as:
 &\dot x_1 = x_2\\
 &\dot x_2 = f_1(\bm x) + g_1(\bm x)+b_1(\bm x)u\\
 &\dot x_3 = x_4\\
-&\dot x_4 = f_2(\bm x) + g_2(\bm x)+b_2(\bm x)u,
+&\dot x_4 = f_2(\bm x) + g_2(\bm x)+b_2(\bm x)u,\label{eq:underactuated system}
 \end{split}
 \end{align}
 where the condition of variables is same to the system~(\ref{eq:second-order system}). Construct the manifold as:
 \begin{align}
 S = c_1s_1+c_2s_2,
 \end{align}
-where $c_1$ and $c_2$ are suitable positive constants, and $s_1$ and $s_2$ has been defined in the MDSM design. Adopting the equivalent control design method deduces the individual equivalent inputs:
+where $c_1$ and $c_2$ are suitable positive constants, and $s_1$ and $s_2$ have been defined in the MDSM design. Adopting the equivalent control design method deduces the individual equivalent inputs:
 \begin{align}
-u_{eq1} = -b_1^{-1}(\bm x)(f_1(\bm x)+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\gamma x_1^2x_2-\lambda x_4)\\
-u_{eq2} = -b_2^{-1}(\bm x)(f_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2)
+\begin{split}
+&u_{eq1} = -b_1^{-1}(\bm x)(f_1(\bm x)+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\gamma x_1^2x_2-\lambda x_4)\\
+&u_{eq2} = -b_2^{-1}(\bm x)(f_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2),
+\end{split}
 \end{align}
+and the control law $u$ has the following formula:
+\begin{align}
+u = (c_1b_1(\bm x)+c_2b_2(\bm x))^{-1}(c_1b_1(\bm x)u_{eq1}+c_2b_2(\bm x)u_{eq2}-\eta_u sign(S)-k_u S)\label{eq:underactuated input}
+\end{align}
+to regulate all states of the underactuated system~(\ref{eq:underactuated system}) as desired in finite time.
 \end{mythm}
+\begin{proof}
+Select a Lyapunov function candidate $V=\frac{1}{2}S^2$, and differentiate it with respect to time $t$:
+\begin{align}
+\begin{split}
+\dot V &= S\dot S = S(c_1\dot s_1+c_2\dot s_2)\\
+&=S(c_1(f_1(\bm x)+g_1(\bm x)+b_1(\bm x)u+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\gamma x_1^2x_2-\lambda x_4)\\
+&\quad+c_2(f_2(\bm x)+g_2(\bm x)+b_2(\bm x)u+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2))\\
+&=S(c_1(f_1(\bm x)+g_1(\bm x)+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\gamma x_1^2x_2-\lambda x_4)\\
+&\quad+c_2(f_2(\bm x)+g_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2)+(c_1b_1(\bm x)+c_2b_2(\bm x))u).\label{eq:underactuated Lyapunov}
+\end{split}
+\end{align}
+Substituting the input~(\ref{eq:underactuated input}) into Eq.~(\ref{eq:underactuated Lyapunov}) one can obtain
+\begin{align}
+\begin{split}
+\dot V &= S(c_1(f_1(\bm x)+g_1(\bm x)+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\gamma x_1^2x_2-\lambda x_4)\\
+&\quad+c_2(f_2(\bm x)+g_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2)\\
+&\quad+(c_1b_1(\bm x)u_{eq1}+c_2b_2(\bm x)u_{eq2}-\eta_u sign(S)-k_u S))\\
+&= S(c_1g_1(\bm x)+c_2g_2(\bm x)-\eta_u sign(S)-k_u S)\\
+&\le -(\eta_u -\vert c_1g_1(\bm x)+c_2g_2(\bm x)\vert)\vert S\vert-k_u S^2.
+\end{split}
+\end{align}
+As $\vert g_i(\bm x)\vert<l_i$ exists, a big enough $\eta_u$ may be chosen to guarantee the reaching condition of the manifold $S$. The proof of the stability of the desired sliding surfaces $s_1$ and $s_2$ is same to the one in \cite{wang2004design}, and omitted here. This completes the proof.
+\end{proof}
 \section{Dual terminal sliding mode control for rigid manipulators}\label{sec:3}
 In this section, a DTSM control is proposed for the rigid $2$-link robotic manipulator
 \begin{align}
