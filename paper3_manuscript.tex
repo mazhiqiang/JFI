@@ -31,7 +31,7 @@
 \address{Research Institute of Intelligent Control and Systems, Harbin Institute of Technology, Harbin 150001, China}
 
 \begin{abstract}
-This paper proposes a novel dual terminal sliding mode control for rigid robotic manipulator. A new terminal sliding mode manifold design technique is addressed to achieve finite time convergence of the sliding phase, and furthermore utilizing the involved dual variables combines the individual sliding mode surfaces to obtain a integral sliding mode dynamics, the convergent time of which is also integral for the entire system. The newly proposed method also has the characteristics of nonsingularity and chattering suppression, and the effectiveness and high efficiency are verified by stabilizing the motion of the rigid robotic manipulator. Simulation results validate the theoretical analysis about the proposed method.
+This paper proposes a novel dual terminal sliding mode control for rigid robotic manipulator. A new terminal sliding mode manifold design technique is addressed to achieve finite time convergence of the sliding phase, and furthermore utilizing the involved dual variables combines the individual sliding mode surfaces to obtain a integral sliding mode dynamics, the convergent time of which is also integral for the entire system. The underactuated issue is coped with by introducing the hierarchical sliding mode methodology into the basis dual sliding mode design. These newly proposed methods also have the characteristics of nonsingularity and chattering suppression, and the effectiveness and high efficiency are verified by stabilizing the motions of the overhead crane and the rigid robotic manipulator. Simulation results validate the theoretical analysis about the proposed method.
 \end{abstract}
 \begin{keyword}
 Finite time control; Robotic manipulator control; Terminal sliding mode; Sliding mode manifold design; Stability analysis
@@ -42,7 +42,7 @@ Variable structure systems (VSS) are best known due to their insensitivity to pa
 For alleviating the side effects, many researchers addressed remarkable approaches to improve the performance of the SMC scheme in last decade~\cite{zong2013quasi,santiesteban2013time,mu2015continuous,evangelista2013lyapunov,gonzalez2014chattering,dadras2012fractional,zhao2013output}. Among these methods, the high order sliding mode control and super-twisting sliding mode control efforts to generate the continuous inputs~\cite{castillo2015higher,palosz2015laser,edwards2016adaptive,zhao2015finite,liu2015second}, which eliminate the chattering by hiding the switching in high-order terms or absorbing the switching via some techniques. \par
 Besides the issue on repressing the chattering, the fast convergence of the SMC scheme is also a hot subject. Normal linear sliding mode control takes two steps to solve a problem about the stability, namely, conducting the system states onto the prescript sliding manifold and driving these states to the origin along the manifold, and some accelerating operations usually occur in this two phases. The first step is said to be the approaching phase which usually requires the states converge to the desired manifold in finite time, and selecting suitable Lyapunov function and control parameters may accelerate this process; the second step is the sliding phase which is related to the designed manifold closely, and normal manifold design techniques are able to guarantee the asymptotically convergence. For achieving a fast convergence in the sliding phase, the terminal sliding mode (TSM) control is developed based on the finite time control theory~\cite{haimo1986finite,bhat1997finite}, and comparing with the sliding mode control design mentioned above, the most significant contributions of the terminal sliding mode is introducing the finite time convergence to the sliding phase to complete the global finite time convergence. Owing to the global finite time convergence, the terminal sliding mode control has been utilized to achieve the high precise control, i.e., in~\cite{li2015robust}, an adaptive TSM scheme controlled a $2$-link robotic manipulator to track the variable signal. Feng et al. presented a global terminal sliding mode algorithm for manipulating the rigid robot, and produced the control design by using Lagrangian dynamic expression~\cite{feng2002non}. In~\cite{kamal2016continuous}, Kamal addressed a continuous homogeneous sliding mode algorithm for a perturbed second-order plant, and the algorithm could be regarded as a combination of terminal and super-twisting sliding-mode, providing a convergence control in finite time. \par
 According to the achievements mentioned above, one can find that the conventional terminal sliding mode manifold design techniques are similar, since they are all based on the single variable finite time control, in another words, the sliding mode dynamics only involves the individual variable and its derivative essentially~\cite{mu2016switching}. This nature makes the TSM scheme become an individual control subsystem, which leads to the complicity of global convergent time in some extent. In this paper, an integral sliding mode manifold technique is proposed for finite time stability of the second-order system, and the novel manifold involves two variables to guarantee the integral finite time convergence, and the convergent time is obtained easily. Also, the nonsingularity and chattering suppression are available in the scheme. \par
-In this paper, a dual sliding mode (DTSM) controller is proposed for a class of second-order nonlinear systems with disturbances and uncertainties. A novel DTSM manifold is exploited to fulfill the finite time convergence, and the approaching and sliding time are both able to be calculated directly. A modified DTSM (MDTSM) control scheme is presented to stabilize the motion of the $n$-link robotic manipulators. The remained paper is organized as follows: Section~\ref{sec:2} introduces a DTSM scheme for a class of second-order system, and the finite time convergence of the approaching and sliding is verified. In addition, we add performance parameters for improving the DTSM scheme to obtain the MDTSM scheme, and the newly presented method has a better performance in theoretical analysis. In Section~\ref{sec:3}, the MDTSM is applied to the motion regulation of the $n$-link robotic  manipulator, and the stability analysis is also carried out. Section~\ref{sec:4} exhibited the simulation results, and finally the conclusion is assigned in Section~\ref{sec:5}.
+In this paper, a dual sliding mode (DTSM) controller is proposed for a class of second-order nonlinear systems with disturbances and uncertainties. A novel DTSM manifold is exploited to fulfill the finite time convergence, and the approaching and sliding time are both able to be calculated directly. For coping with the underacutated issue, cooperating with the hierarchical sliding surface design methodology, we develop a hierarchical dual terminal sliding mode (HDTSM) control. A modified DTSM (MDTSM) control scheme is presented to stabilize the motion of the $n$-link robotic manipulators. The remained paper is organized as follows: Section~\ref{sec:2} introduces a DTSM scheme for a class of second-order system, and the finite time convergence of the approaching and sliding is verified. In addition, we add performance parameters for improving the DTSM scheme to obtain the MDTSM scheme, and the newly presented method has a better performance in theoretical analysis; for stabilizing the underactuated system, the HDTSM design is developed as well in this section. In Section~\ref{sec:3}, the MDTSM is applied to the motion regulation of the $n$-link robotic  manipulator, and the stability analysis is also carried out. Section~\ref{sec:4} exhibited the simulation results, and finally the conclusion is assigned in Section~\ref{sec:5}.
 \section{Dual terminal sliding mode control}\label{sec:2}
 Consider a second-order nominal nonlinear system:
 \begin{align}
@@ -214,7 +214,7 @@ one can obtain a nonsingular solution to the stabilization of the system~(\ref{e
 \begin{proof}
 The proof is similar to the graphical analysis mentioned in~\cite{feng2013nonsingular}, and omitted here.
 \end{proof}
-When the input $u_1$ equals to $u_2$ in system.~(\ref{eq:second-order system}), the number of the inputs is fewer than the degrees of the freedom, resulting in that the issue transforms to be an underactuated stabilization. These underactuated systems are frequently used in the scientific field, such as flexible manipulators, overhead crane and underwater robots, because fewer actuators may decrease the mass and save the energy as well. Cooperating with the hierarchical sliding mode methodology, the manifold design scheme proposed above is able to control this kind of systems. We give the hierarchical dual terminal sliding mode design directly.
+When the input $u_1$ equals to $u_2$ in system.~(\ref{eq:second-order system}), the number of the inputs is fewer than the degrees of the freedom, resulting in that the issue transforms to be an underactuated stabilization. These underactuated systems are frequently used in the scientific field, such as flexible manipulators, overhead crane and underwater robots, because fewer actuators may decrease the mass and save the energy as well. Cooperating with the hierarchical sliding mode methodology, the manifold design scheme proposed above is able to control this kind of systems \cite{wang2004design}. We give the hierarchical dual terminal sliding mode design directly.
 \begin{mythm}
 Consider a nonlinear system described as:
 \begin{align}
@@ -382,7 +382,7 @@ The singularity of the DTSM scheme for the robotic manipulator can be removed by
 One can also use the term $x^{a/b}$ instead of $sgn^\alpha(x)$ in the DTSM control mentioned above, where $a$ and $b$ are odd numbers with $0<a/b<1$, as the entire proof maintains available theoretically. For handling the chattering, the $sign(x)$ is replaced with $sat(x,\delta)$, and the bounded value $\delta$ is determined according to actual needs.
 \end{myrem}
 \section{Simulation studies}\label{sec:4}
-In this section, two studies will be presented, namely, a verification on the effectiveness of the proposed DTSM and MDTSM schemes and an application to a manipulator stabilization evaluating the performance of the control schemes.
+In this section, three studies will be presented, namely, a verification on the effectiveness of the proposed DTSM and MDTSM schemes, an underactuated example and an application to a manipulator stabilization evaluating the performance of the control schemes.
 \subsection{Effectiveness study}
 For verifying the effectiveness of the proposed control scheme, consider the following second-order nonlinear system with the disturbance:
 \begin{align}
@@ -415,12 +415,41 @@ At this point, some effectiveness of the MDTSM control scheme proposed above has
 \caption{System inputs}
 \label{Figure:3}
 \end{figure}
-\subsection{Performance of the robotic manipulator}
-In order to evaluate the performance of the proposed control scheme, a simulation about the $2$-link robotic manipulator is presented in the following context. Figure~\ref{Figure:1} is the $2$-link manipulator schematic, the dynamics of which can be explained by the dynamic equations in following forms:
-
+\subsection{Uneractuated example}
+Figure~\ref{Figure:8} shows an overhead crane system, the state space equations of which is same with the formula in Eq.~(\ref{eq:underactuated system}) with state variables selected as $\bm x=(x,\dot x,q,\dot q)$, and the details are listed:
+\begin{align}
+\begin{split}
+f_1&=(M+m\sin^2q)^{-1}(mL\dot q^2\sin q+mg\sin q\cos q)\\
+b_1&=(M+m\sin^2q)^{-1}\\
+f_2&=-(ML+mL\sin^2q)^{-1}((M+m)g\sin q+mL\dot q^2\sin q\cos q)\\
+b_2&=-(ML+mL\sin^2q)^{-1}\cos q,
+\end{split}
+\end{align}
+where $x$ is defined as the displacement of the horizontal direction, and $q$ stands for the swing angle from the vertical line. $M=1kg$ and $m=0.8kg$ donate the masses of the trolley and the load in Figure~\ref{Figure:8}, respectively, and $g=9.8m/s^2$ refers to as the acceleration of gravity. $L=0.305m$ represents the length of the rope. In this simulation, the disturbances are also introduced:
+\begin{align} 
+g_1(\bm x)&= 0.02\sin t\\
+g_2(\bm x)&=0.07e^{-4t},
+\end{align}
+and those boundaries are easy to obtain. The initial condition of the overhead crane system is $\bm x_0 = (0.1,0,0.1,0)$, while the desired status is $\bm x_d = (2,0,0,0)$. The HDSM controller can be designed with the following set of parameters:
+$c_1=1$, $c_2=4$, $\eta_u = 0.1$, $k_u=1$, $\gamma = 1$, $\lambda = 3$, $\alpha = 0.6$.\par
+Figure~\ref{Figure:8} shows the state response curves of the overhead crane system controlled using the HDSM control scheme, and the results show that the controller stabilize the displacement at $6s$ approximately, though the disturbance exists in the system. One can find that the swing angle is fluctuating in a fairly small range, the boundary of which is not more than $1\times 10^-3rad$, hence this phenomena is reasonable and also occurs in the stable hierarchical sliding mode control \cite{wang2004design}.  
 \begin{figure}
 \centering
-\includegraphics[width=0.4\textwidth]{paper3_fig1.eps}
+\includegraphics[width=0.3\textwidth]{paper3_fig8.eps}
+\caption{Overhead crane schematic}
+\label{Figure:8}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{paper3_fig9.eps}
+\caption{Overhead crane schematic}
+\label{Figure:9}
+\end{figure}
+\subsection{Performance of the robotic manipulator}
+In order to evaluate the performance of the proposed control scheme, a simulation about the $2$-link robotic manipulator is presented in the following context. Figure~\ref{Figure:1} is the $2$-link manipulator schematic, the dynamics of which can be explained by the dynamic equations in following forms:
+\begin{figure}
+\centering
+\includegraphics[width=0.3\textwidth]{paper3_fig1.eps}
 \caption{$2$-link manipulator schematic}
 \label{Figure:1}
 \end{figure}
@@ -504,7 +533,7 @@ The simulation results are demonstrated in Figure~\ref{Figure:6} and Figure~\ref
 \label{Figure:7}
 \end{figure}
 \section{Conclusion}\label{sec:5}
-A DTSM control for n-link robotic manipulator has been presented. The method integrates two individual subsystems as a unity, then builds the manifold and input for it to complete the controller design. The control scheme is able to guarantee the reaching condition of the desired sliding manifold, meanwhile the system states converge to the origin along the desired manifold. Also, the entire convergent time can be calculated accordingly. Developing the basic DTSM yields the MDTSM control, providing a solution to eliminating chattering, avoiding singularity and fast convergence. For dealing with the under actuated characteristics which may appear in the system, the hierachical sliding mode technique will be considered to introduce into the control scheme, however, the control parameters selection is still a challenge.
+A DTSM control for n-link robotic manipulator has been presented. The method integrates two individual subsystems as a unity, then builds the manifold and input for it to complete the controller design. The control scheme is able to guarantee the reaching condition of the desired sliding manifold, meanwhile the system states converge to the origin along the desired manifold. Also, the entire convergent time can be calculated accordingly. Developing the basic DTSM yields the MDTSM control, providing a solution to eliminating chattering, avoiding singularity and fast convergence. For dealing with the under actuated characteristics which may appear in the system, the HDTSM control is derived, and the overhead crane example verifies its effectiveness. However, the control parameters selection is still a challenge especially in the HDTSM scheme, and we will effort to excavate a full order dual terminal sliding mode methodology in the future for removing the obstacle caused by parameters essentially.
 \section{Acknowledgment}
 This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503097).
 \section{References}
