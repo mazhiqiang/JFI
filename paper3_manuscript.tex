@@ -31,17 +31,17 @@
 \address{Research Institute of Intelligent Control and Systems, Harbin Institute of Technology, Harbin 150001, China}
 
 \begin{abstract}
-This paper proposes a novel dual terminal sliding mode control for rigid robotic manipulator. A new terminal sliding mode manifold design technique is addressed to achieve finite time convergence of the sliding phase, and furthermore utilizing the involved dual variables combines the individual sliding mode surfaces to obtain an integral sliding mode dynamics, the convergent time of which is also integral for the entire system. The underactuated issue is coped with by introducing the hierarchical sliding mode methodology into the basic dual sliding mode design. These newly proposed methods also have the characteristics of nonsingularity and chattering suppression, and the effectiveness and high efficiency are verified by stabilizing the motions of the overhead crane and the rigid robotic manipulator. Simulation results validate the theoretical analysis about the proposed method.
+This paper proposes a novel dual terminal sliding mode control for rigid robotic manipulator. A new terminal sliding mode manifold design technique is addressed to achieve finite time convergence of the sliding phase, and furthermore utilizing the involved dual variables combines the individual sliding mode surfaces to obtain an integral sliding mode dynamics, the convergence time of which is also integral for the entire system. The underactuated issue is coped with by introducing the hierarchical sliding mode methodology into the basic dual sliding mode design. These newly proposed methods also have the characteristics of nonsingularity and chattering suppression, and the effectiveness and high efficiency are verified by stabilizing the motions of the overhead crane and the rigid robotic manipulator. Simulation results validate the theoretical analysis about the proposed method.
 \end{abstract}
 \begin{keyword}
 Finite time control; Robotic manipulator control; Terminal sliding mode; Sliding mode manifold design; Stability analysis
 \end{keyword}
 \end{frontmatter}
 \section{Introduction}
-Variable structure systems (VSS) are best known due to their insensitivity to parameter variations and uncertainties~\cite{slotine1991applied}. Its widely utilization in reality, such as DC and AC motors, process control, aircrafts, satellites, robots and so on, has validated robustness of VSS. As one of the most important branch of the VSS, the sliding mode control (SMC) has become a popular solution to the issue about various control and signal process missions in recent years~\cite{zhao2015nonlinear,zhang2015attitude}. Meza-S{\'a}nchez et al. applied the second-order sliding mode controller to a 3-DOF helicopter prototype, and verified the effectiveness via the experimental test bed~\cite{meza2015output}. Zheng et al. implemented the SMC to eliminate the effect of the input quantization generated between the coder and the decoder~\cite{zheng2016sliding}. Guzman et al. investigated the application of a SMC in a power factor rectifier with constant switching frequency~\cite{guzman2016sliding}. Said et al. designed a robust adaptive sliding mode method to guarantee the asymptotically stability of a boost converter~\cite{oucheriah2013pwm}. Roughly speaking, the SMC scheme is competent for normal scientific mission, due to its insensitivity of parameters and uncertainties in system, however, there still exist some obstacles, such as noncontinuous switching input in high frequency and convergent speed design~\cite{boiko2013chattering,lee2009chattering}, preventing it from being utilized in some practical engineering cases~\cite{fridman2011sliding}. \par
+Variable structure systems (VSS) are best known due to their insensitivity to parameter variations and uncertainties~\cite{slotine1991applied}. Its widely utilization in reality, such as DC and AC motors, process control, aircrafts, satellites, robots and so on, has validated robustness of VSS. As one of the most important branch of the VSS, the sliding mode control (SMC) has become a popular solution to the issue about various control and signal process missions in recent years~\cite{zhao2015nonlinear,zhang2015attitude}. Meza-S{\'a}nchez et al. applied the second-order sliding mode controller to a 3-DOF helicopter prototype, and verified the effectiveness via the experimental test bed~\cite{meza2015output}. Zheng et al. implemented the SMC to eliminate the effect of the input quantization generated between the coder and the decoder~\cite{zheng2016sliding}. Guzman et al. investigated the application of a SMC in a power factor rectifier with constant switching frequency~\cite{guzman2016sliding}. Said et al. designed a robust adaptive sliding mode method to guarantee the asymptotically stability of a boost converter~\cite{oucheriah2013pwm}. Roughly speaking, the SMC scheme is competent for normal scientific mission, due to its insensitivity of parameters and uncertainties in system, however, there still exist some obstacles, such as noncontinuous switching input in high frequency and convergence speed design~\cite{boiko2013chattering,lee2009chattering}, preventing it from being utilized in some practical engineering cases~\cite{fridman2011sliding}. \par
 For alleviating the side effects, many researchers addressed remarkable approaches to improve the performance of the SMC scheme in last decade~\cite{zong2013quasi,santiesteban2013time,mu2015continuous,evangelista2013lyapunov,gonzalez2014chattering,dadras2012fractional,zhao2013output}. Among these methods, the high-order sliding mode control and super-twisting sliding mode control effort to generate the continuous inputs~\cite{castillo2015higher,palosz2015laser,edwards2016adaptive,zhao2015finite,liu2015second}, which eliminate the chattering by hiding the switching in high-order terms or absorbing the switching via some techniques. \par
 Besides the issue on repressing the chattering, the fast convergence of the SMC scheme is also a hot subject. Normal linear sliding mode control takes two steps to solve a problem about the stability, namely, conducting the system states onto the prescript sliding manifold and driving these states to the origin along the manifold, and some accelerating operations usually occur in this two phases. The first step is said to be the approaching phase which usually requires the states converge to the desired manifold in finite time, and selecting suitable Lyapunov function and control parameters may accelerate this process; the second step is the sliding phase which is related to the designed manifold closely, and trivial manifold design techniques are able to guarantee the asymptotically convergence. For achieving a fast convergence in the sliding phase, the terminal sliding mode (TSM) control is developed based on the finite time control theory~\cite{haimo1986finite,bhat1997finite}, and comparing with the sliding mode control design mentioned above, the most significant contributions of the terminal sliding mode is introducing the finite time convergence to the sliding phase to complete the global finite time convergence. Owing to the global finite time convergence, the terminal sliding mode control has been utilized to achieve the high precise control, i.e., in~\cite{li2015robust}, an adaptive TSM scheme controlled a $2$-link robotic manipulator to track the variable signal. Feng et al. presented a global terminal sliding mode algorithm for manipulating the rigid robot, and produced the control design by using Lagrangian dynamic expression~\cite{feng2002non}. In~\cite{kamal2016continuous}, Kamal addressed a continuous homogeneous sliding mode algorithm for a perturbed second-order plant, and the algorithm could be regarded as a combination of terminal and super-twisting sliding-mode, providing a convergence control in finite time. \par
-According to the achievements mentioned above, one can find that the conventional terminal sliding mode manifold design techniques are similar, since they are all based on the single variable finite time control, in another words, the sliding mode dynamics only involves the individual variable and its derivative essentially~\cite{mu2016switching}. This nature makes the TSM scheme become an individual control subsystem, which leads to the complicity of global convergent time in some extent. In this paper, an integral sliding mode manifold technique is proposed for finite time stability of the second-order system, and the novel manifold involves two variables to guarantee the integral finite time convergence, and the convergent time is obtained easily. Also, the nonsingularity and chattering suppression are available in the scheme. \par
+According to the achievements mentioned above, one can find that the conventional terminal sliding mode manifold design techniques are similar, since they are all based on the single variable finite time control, in another words, the sliding mode dynamics only involves the individual variable and its derivative essentially~\cite{mu2016switching}. This nature makes the TSM scheme become an individual control subsystem, which leads to the complicity of global convergence time in some extent. In this paper, an integral sliding mode manifold technique is proposed for finite time stability of the second-order system, and the novel manifold involves two variables to guarantee the integral finite time convergence, and the convergence time is obtained easily. Also, the nonsingularity and chattering suppression are available in the scheme. \par
 In this paper, a dual terminal sliding mode (DTSM) controller is proposed for a class of second-order nonlinear systems with disturbances and uncertainties. A novel DTSM manifold is exploited to fulfill the finite time convergence, and the approaching and sliding time are both able to be calculated directly. For coping with the underacutated issue, cooperating with the hierarchical sliding surface design methodology, we develop a hierarchical dual terminal sliding mode (HDTSM) control. A modified DTSM (MDTSM) control scheme is presented to stabilize the motion of the $n$-link robotic manipulators. The remained paper is organized as follows: Section~\ref{sec:2} introduces a DTSM scheme for a class of second-order system, and the finite time convergence of the approaching and sliding phase is verified. In addition, we add performance parameters for improving the DTSM scheme to obtain the MDTSM scheme, and the newly presented method has a better performance in theoretical analysis; for stabilizing the underactuated system, the HDTSM design is developed as well in this section. In Section~\ref{sec:3}, the MDTSM is applied to the motion regulation of the $n$-link robotic  manipulator, and the stability analysis is also carried out. Section~\ref{sec:4} exhibits the simulation results, and finally the conclusion is assigned in Section~\ref{sec:5}.
 \section{Dual terminal sliding mode control}\label{sec:2}
 Consider a second-order nominal nonlinear system:
@@ -65,13 +65,13 @@ s_2(t) &= x_4(t)+\vert x_3(t)\vert^{\alpha} sgn(x_3(t))+x_3^3(t)+x_1(t),\label{e
 \end{split}
 \end{align}
 where $sgn(x)$ is the sign function, and $0<\alpha<1$ is a positive constant. For the sake of simplicity, the symbol $t$ is usually omitted in this paper, which does not cause any confusion, and it will appear once the derivation concerns for the factor of the time strictly, i.e., the desired sliding manifold $\bm s(t)$ is often abbreviated to $\bm s$.\par
-There exist two lemmas about the finite convergence theory, providing convergent forms which contribute to the verification of the finite time convergence about the DTSM control.
+There exist two lemmas about the finite convergence theory, providing convergence forms which contribute to the verification of the finite time convergence about the DTSM control.
 \begin{mylem}
 As described in~\cite{moulay2006finite}, it's assumed that the continuous function $V(t)$ is positive-define, satisfying the following condition:
 \begin{align}
 \dot V(t)\le -dV^\beta(t)\quad\forall t\ge t_0, V(t_0)\ge 0,
 \end{align}
-where $d$ is a positive scalar, and $0<\beta<1$. Then the function $V(t)$ converges to the origin for any given $t_0$, and typically the finite convergent time $t_r$ can be given as follows:
+where $d$ is a positive scalar, and $0<\beta<1$. Then the function $V(t)$ converges to the origin for any given $t_0$, and typically the finite convergence time $t_r$ can be given as follows:
 \begin{align}
 t_r \le t_0+\frac{V^{1-\beta}(t_0)}{d(1-\beta)}.
 \end{align}\label{lemma:1}
@@ -84,7 +84,7 @@ Consider a second-order system:
 \dot x_2&=-\vert x_2\vert^\alpha sgn(x_3)-x_2^3-x_1,\label{eq:normal sliding manifold}
 \end{split}
 \end{align}
-and selecting $V(t) = \frac{x_1^2+x_2^2}{2}$ obtains the finite convergent time as follows~\cite{moulay2006finite}:
+and selecting $V(t) = \frac{x_1^2+x_2^2}{2}$ obtains the finite convergence time as follows~\cite{moulay2006finite}:
 %since $\vert x\vert-x^\alpha+\vert x\vert \ge 0,0<\alpha<1$
 \begin{align}
 %t_s\le t_0+\frac{2(x_1^2+x_2^2)^{1-\alpha}}{1-\alpha}
@@ -95,7 +95,7 @@ where the definitions of  $t_s$, $t_0$, $\alpha$ are similar to Lemma \ref{lemma
 \dot x_1&=-d(\vert x_1\vert^\alpha sgn(x_1)-x_1^3+x_2)\\
 \dot x_2&=-d(\vert x_2\vert^\alpha sgn(x_2)-x_2^3-x_1),\label{eq:more normal sliding manifold}
 \end{align}
-the convergent time of which is
+the convergence time of which is
 \begin{align}
 t_s\le t_0+\frac{(2V(t_0))^{\frac{1-\alpha}{2}}}{d(1-\alpha)}.
 \end{align}\label{lemma:2}
@@ -112,6 +112,18 @@ u_2 &= -b_2^{-1}(\bm x)(f_2(\bm x)+\alpha\vert x_3\vert^{\alpha-1}x_4+3x_3^2x_4+
 where $k_i = l_i+\eta_i$, $i=1,2$; $\eta_i>0$ is a positive scalar value.
 \end{mythm}
 \begin{proof}
+According to the equivalent control technique and the sliding surface reaching condition~\cite{Arie1993sliding}, the inputs can be design as
+\begin{align}\begin{split}
+u_1 &= u_{eq1}+u_{sw1}\\
+u_2 &= u_{eq2}+u_{sw2}\notag
+\end{split}\end{align}
+where
+\begin{align}\begin{split}
+u_{eq1} &= -b_1^{-1}(\bm x)(f_1(\bm x)+\alpha\vert x_1\vert^{\alpha-1}x_2+3x_1^2x_2-x_4)\\
+u_{eq2} &= -b_2^{-1}(\bm x)(f_2(\bm x)+\alpha\vert x_3\vert^{\alpha-1}x_4+3x_3^2x_4+x_2)\notag
+\end{split}\end{align}
+are the eauivalent control inputs to ensure $\dot s_1 = 0$ and $\dot s_2=0$, respectively, with $u_i = u_{eqi}$, $i=1,2$. The switching inputs are designed as $u_{swi}=-b_i^{-1}k_isgn(s_i)$, $i=1,2$ to guarantee the finite time reaching conditions of the ideal sliding surface.
+
 Consider the Lyapunov function $V=\frac{1}{2}{\bm s}^T\bm s$, the derivative of which with respect to time $\dot V = {\bm s}^T \bm {\dot s}$ follows
 \begin{align}
 \begin{split}
@@ -130,17 +142,17 @@ Substituting inputs (\ref{eq:DSM input}) in~Eq. (\ref{eq:V_1}) yields
 &\le -\min(\eta_1,\eta_2)({\bm s}^T\bm s)^\frac{1}{2}\\
 &\le -\sqrt{2}\min(\eta_1,\eta_2)V^\frac{1}{2}\le 0.
 \end{align*}
-Hence, the system (\ref{eq:second-order system}) asymptotically converges to the desired manifold (\ref{eq:dual sliding manifold}), and incidentally the convergent time is calculated according to the finite time convergence theory.\par
+Hence, the system (\ref{eq:second-order system}) asymptotically converges to the desired manifold (\ref{eq:dual sliding manifold}), and incidentally the convergence time is calculated according to the finite time convergence theory.\par
 Once the system (\ref{eq:second-order system}) reaches the desired manifold~(\ref{eq:dual sliding manifold}), the whole system is handled by the reduced system:
 \begin{align*}
 \dot x_1&=-\vert x_1\vert^\alpha sgn(x_1)-x_1^3+x_3\\
 \dot x_3&=-\vert x_3\vert^\alpha sgn(x_3)-x_3^3-x_1.
 \end{align*}\par
-The total convergent time can be calculated by dividing the convergence into two phases with respect to the relation between the system and the manifold, namely, the approaching phase and the sliding phase, and specifically, according to Lemma \ref{lemma:2}, the total finite convergent time $t_f$ is calculated from:
+The total convergence time can be calculated by dividing the convergence into two phases with respect to the relation between the system and the manifold, namely, the approaching phase and the sliding phase, and specifically, according to Lemma \ref{lemma:2}, the total finite convergence time $t_f$ is calculated from:
 \begin{align}
 t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{1-\alpha}}_{t_s}<\infty,
 \end{align}
-where $\hat V(t) = \frac{x_1^2+x_3^2}{2}$ is the Lyapunov function describing the convergent motion of the reduced system. The approaching and sliding time are defined as $t_r$ and $t_s$, respectively. This completes the proof.
+where $\hat V(t) = \frac{x_1^2+x_3^2}{2}$ is the Lyapunov function describing the convergence motion of the reduced system. The approaching and sliding time are defined as $t_r$ and $t_s$, respectively. This completes the proof.
 \end{proof}
 On the basis of Theorem \ref{theorem:1}, we proceed to develop the parameters in the manifold to improve the performance, which introduces a modified method for stabilizing the system~(\ref{eq:second-order system}), and furthermore this method makes the design of the manifold more flexible. Consider the system~(\ref{eq:second-order system}) with the manifold $\bm s = [s_1,s_2]^T$, the details of which are described by following expressions:
 \begin{align}
@@ -158,19 +170,19 @@ u_1 &= -b_1^{-1}(\bm x)(f_1(\bm x)+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\ga
 u_2 &= -b_2^{-1}(\bm x)(f_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2+k_2sgn(s_2)),\label{eq:modified input}
 \end{split}
 \end{align}
-where $k_i = l_i+\eta_i$, $i=1,2$; $\eta_i>0$ is a positive scalar value. The total finite convergent time is calculated from:
+where $k_i = l_i+\eta_i$, $i=1,2$; $\eta_i>0$ is a positive scalar value. The total finite convergence time is calculated from:
 \begin{align}
-t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{\gamma(1-\alpha)}}_{t_s}<\infty,\label{eq:total convergent time}
+t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{\gamma(1-\alpha)}}_{t_s}<\infty,\label{eq:total convergence time}
 \end{align}
 \end{mythm}
 \begin{proof}
 The proof is similar to Theorem \ref{theorem:1}, hence it's omitted here.
 \end{proof}
-After introducing the parameters $\lambda$ and $\gamma$ into the DTSM scheme, the performances of the approaching and sliding phases become regulatable, meaning that these parameters can adjust the convergent time analytically. Although $\lambda$ does not appear in Eq.~(\ref{eq:total convergent time}), the establishment of $V(t_0)$ involves it when the state $\bm x(t_0)$ has been fixed. Strictly speaking, it affects the approaching distance between $V(t_0)$ and $V(t_r)$, and normally $V(t_r)$ stands for the reaching status at $t_r$, namely, $V(t)=\bm s^T(t)\bm s(t) = 0,\forall t\ge t_r$. Admittedly, the variety of $\lambda$ is only modestly helpful in this approaching time regulation due to its limited effect on $V(t_0)$. $\eta$ is said to be an ''approaching speed'' according to its function, a suitable selection of which will adjust the approaching time as desired in some extent. Hence, $\lambda$ cooperates with $\eta$ to manage the approaching status, and by utilizing the similar analysis, owing to $\gamma$ adjusting the speed of sliding phase, it's able to be defined as the management parameter of the sliding status.
+After introducing the parameters $\lambda$ and $\gamma$ into the DTSM scheme, the performances of the approaching and sliding phases become regulatable, meaning that these parameters can adjust the convergence time analytically. Although $\lambda$ does not appear in Eq.~(\ref{eq:total convergence time}), the establishment of $V(t_0)$ involves it when the state $\bm x(t_0)$ has been fixed. Strictly speaking, it affects the approaching distance between $V(t_0)$ and $V(t_r)$, and normally $V(t_r)$ stands for the reaching status at $t_r$, namely, $V(t)=\bm s^T(t)\bm s(t) = 0,\forall t\ge t_r$. Admittedly, the variety of $\lambda$ is only modestly helpful in this approaching time regulation due to its limited effect on $V(t_0)$. $\eta$ is said to be an ''approaching speed'' according to its function, a suitable selection of which will adjust the approaching time as desired in some extent. Hence, $\lambda$ cooperates with $\eta$ to manage the approaching status, and by utilizing the similar analysis, owing to $\gamma$ adjusting the speed of sliding phase, it's able to be defined as the management parameter of the sliding status.
 \begin{myrem}
-For the proposed designs, the parameter $\gamma$ may be defined as different scalar for the individual input, if so, one can produce the total convergent time as:
+For the proposed designs, the parameter $\gamma$ may be defined as different scalar for the individual input, if so, one can produce the total convergence time as:
 \begin{align}
-t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{\min(\gamma_1,\gamma_2)(1-\alpha)}}_{t_s}<\infty,\label{eq:normal total convergent time}
+t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{\min(\gamma_1,\gamma_2)(1-\alpha)}}_{t_s}<\infty,\label{eq:normal total convergence time}
 \end{align}
 with $\gamma_i$ corresponding to the original parameter $\gamma$ in input $u_i$.
 \end{myrem}
@@ -399,14 +411,21 @@ and an MDTSM control scheme is produced conveniently. It's obvious that the dist
 \Vert g_2(x,t)\Vert &= \Vert 0.3\sin(3t)+0.5e^{-3t}\Vert\le 0.8,
 \end{align*}
 and hence, based on the analysis in Theorem~\ref{theorem:1}, $l_1>0.1$ and $l_2>0.8$ are determined accordingly to guarantee the reaching condition of the desired sliding manifold. Also, the inputs $u_1$ and $u_2$ are able to be viewed as virtual input terms which consist of the linear combination of the crucial inputs in system, i.e., for the system~(\ref{eq:simulation second-order system}), the input terms can be expressed by $\bm u = \Xi\bm\tau$ particularly, where $\bm u\in R^2$ is the virtual input vector; $\bm \tau\in R^2$ stands for the crucial input vector; $\Xi\in R^{2\times 2}$ must have full rank.\par
-The system is supposed to be conducted to the desired state $\bm x_d=(0,0,0,0)$ from a prescript state $\bm x_0=(1.2,1.2,1.2,1.2)$. Admittedly, this prescript condition leads to a lager initial approaching distance due to the existence of the cubic terms $\gamma x^3$ in the sliding manifold, therefore a large approaching speed $k_i$ is required correspondingly. The control parameters are chosen as: $\alpha = 0.6$, $\lambda = 0.5$, $\gamma = 3$ and $k = 20$. Besides the large approaching speed selected, $\gamma$ accelerates the sliding phase indirectly. Therefore the design of the MDTSM controller for the system~(\ref{eq:simulation second-order system}) is finished, and the corresponding simulation results are illustrated in Figure~\ref{Figure:2} and Figure~\ref{Figure:3}.\par
-From Figure~\ref{Figure:2}, it's apparent that the states converge to their desired states. Figure~\ref{Figure:3} demonstrates the inputs, the amplitudes of which are closely related to $\eta$, for the purpose of avoiding the largely chattering caused by $\eta$, the saturation function $sat()$ is applied to take place of $sign()$ to absorb it. Also, although the states have been adjusted to the origin and stay there in subsequent time, one can find that the inputs don't maintain constant but fluctuate in a certain range. The nature of the situation mentioned above is the input compensating the error caused by the distance.\par
+The system is supposed to be conducted to the desired state $\bm x_d=(0,0,0,0)$ from a prescript state $\bm x_0=(1.2,1.2,1.2,1.2)$. Admittedly, this prescript condition leads to a lager initial approaching distance due to the existence of the cubic terms $\gamma x^3$ in the sliding manifold, therefore a large approaching speed $k_i$ is required correspondingly. The control parameters are chosen as: $\alpha = 0.6$, $\lambda = 0.5$, $\gamma = 3$ and $k = 20$. Besides the large approaching speed selected, $\gamma$ accelerates the sliding phase indirectly. Therefore the design of the MDTSM controller for the system~(\ref{eq:simulation second-order system}) is finished, and the corresponding simulation results are illustrated from Figure~\ref{Figure:2} to Figure~\ref{Figure:3}.\par
+From Figure~\ref{Figure:2}, it's apparent that the states converge to their desired states. \textcolor{red}{For the nominal system~(\ref{eq:simulation second-order system}) handled by utilizing the MDTSM controller, accrording to Eq.~(\ref{eq:total convergence time}) and simulation datas, we can calculate the maximum theoretical finite convergence time $t_f=5.2609s$ directly. The system states, in other words, can be stable in no more than $5.609s$ theoretically. However, the system response results in Figure~\ref{Figure:2_20161108} indicate that all the states have been stable after about $1.5s$, which is far less than $t_f$. Hence, from the view of the convergence time, the simulation results are in accordance with the theoretical analyses.} Figure~\ref{Figure:3} demonstrates the inputs, the amplitudes of which are closely related to $\eta$, for the purpose of avoiding the largely chattering caused by $\eta$, the saturation function $sat()$ is applied to take place of $sign()$ to absorb it. Also, although the states have been adjusted to the origin and stay there in subsequent time, one can find that the inputs don't maintain constant but fluctuate in a certain range. The nature of the situation mentioned above is the input compensating the error caused by the distance.\par
 At this point, some effectiveness of the MDTSM control scheme proposed above has been verified, and in Section \ref{sec:robotica manipulator}, we will apply it to stabilize the behavior of a $2$-link robotic manipulator directly.
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig2.eps}
 \caption{Phase space trajectory}
 \label{Figure:2}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{paper3_fig2_20161108.eps}
+\caption{system response}
+\label{Figure:2_20161108}
 \end{figure}
 
 \begin{figure}
@@ -432,7 +451,7 @@ g_2(\bm x)&=0.07e^{-4t},
 \end{align}
 and those boundaries are easy to obtain. The initial condition of the overhead crane system is $\bm x_0 = (0.1,0,0.1,0)$, while the desired status is $\bm x_d = (2,0,0,0)$. The HDSM controller can be designed with the following set of parameters:
 $c_1=1$, $c_2=4$, $\eta_u = 0.1$, $k_u=1$, $\gamma = 1$, $\lambda = 3$, $\alpha = 0.6$.\par
-Figure~\ref{Figure:8} shows the state response curves of the overhead crane system controlled using the HDSM control scheme, and the results show that the controller stabilize the displacement at $6s$ approximately, though the disturbance exists in the system. One can find that the swing angle is fluctuating in a fairly small range, the boundary of which is not more than $1\times 10^-3rad$, hence this phenomena is reasonable and also occurs in the stable hierarchical sliding mode control \cite{wang2004design}.
+Figure~\ref{Figure:9} shows the state response curves of the overhead crane system controlled using the HDSM control scheme, and the results show that the controller stabilize the displacement at $6s$ approximately, though the disturbance exists in the system. One can find that the swing angle is fluctuating in a fairly small range, the boundary of which is not more than $1\times 10^-3rad$, hence this phenomena is reasonable and also occurs in the stable hierarchical sliding mode control \cite{wang2004design}.
 \begin{figure}
 \centering
 \includegraphics[width=0.3\textwidth]{paper3_fig8.eps}
@@ -442,7 +461,7 @@ Figure~\ref{Figure:8} shows the state response curves of the overhead crane syst
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig9.eps}
-\caption{Overhead crane schematic}
+\caption{Overhead crane dynamics}
 \label{Figure:9}
 \end{figure}
 \subsection{Performance of the robotic manipulator}\label{sec:robotica manipulator}
@@ -488,7 +507,7 @@ where
 &\xi_2(q_1,q_2) = m_2r_2\cos(q_1+q_2).
 \end{align*}\par
 The values of the parameters are listed here, $r_1=1m$, $r_2=0.8m$, $J_1=5 kgm$, $J_2=5kgm$, $m_1=0.5kg$, $m_2=1.5kg$. In this model, the uncertainty is brought in by estimated terms, namely, $\bar m_1=0.4$ and $\bar m_2=1.2$ which are all not the actual value obviously. In addition, owing to that it sits on many terms in the dynamic equations, it's a severe challenge to guarantee the performance. Accordingly, the uncertainty parameters in Eq.~(\ref{eq:manipulator uncertainty}) are assumed to be $\mu_0=10$, $\mu_1=3$, $\mu_2=3$.\par
-This section will give a set of simulation to examine the performance of the MDTSM control in tracking the certain angle condition. The behavior of the manipulator should fulfill the initial and desired condition, namely, $(\bm q_0^T, \dot{\bm q}_0^T)= (0.3,0.2,0,0)$ and $({\bm q}_d^T,\dot{\bm q}_d^T)=(1,1,0,0)$. In order to ensure the stability and a fast convergent speed, the control parameters are chosen conservatively to make the manipulator track the desired attitude in finite time, and these parameters are $\alpha = 0.6$, $\gamma = 1$, $\lambda = 0.1$, $k = 100$. The terminal sliding mode control (TSM) scheme, as a comparison, is also implemented to regulate the behavior of the manipulator:
+This section will give a set of simulation to examine the performance of the MDTSM control in tracking the certain angle condition. The behavior of the manipulator should fulfill the initial and desired condition, namely, $(\bm q_0^T, \dot{\bm q}_0^T)= (0.3,0.2,0,0)$ and $({\bm q}_d^T,\dot{\bm q}_d^T)=(1,1,0,0)$. In order to ensure the stability and a fast convergence speed, the control parameters are chosen conservatively to make the manipulator track the desired attitude in finite time, and these parameters are $\alpha = 0.6$, $\gamma = 1$, $\lambda = 0.1$, $k = 150$. The terminal sliding mode control (TSM) scheme, as a comparison, is also implemented to regulate the behavior of the manipulator:
 \begin{align}
 \begin{split}
 \bm s &= \dot{\bm \varepsilon}+C_\gamma\lceil\bm{sgn}^\alpha(\bm \varepsilon)\rfloor\\
@@ -499,7 +518,7 @@ This section will give a set of simulation to examine the performance of the MDT
 \end{split}
 \end{align}
 where the main control parameters of which are selected as $\alpha = 0.6$, $\gamma = 5$ and $k = 150$ to get a fairly good control performance.\par
-The performance of the controllers mentioned above is illustrated in Figure~\ref{Figure:4} and Figure~\ref{Figure:5}. Comparatively speaking, $q_1$ reaches the desired state at about $3s$ with the MDTSM scheme, the reaching time of which is approximating $0.8s$ less than of the TSM scheme, and $q_2$ performs similar behaviors with a reasonable variable range of the angular rates. Concentrate on the mission time of the entire motion, and inductively the time is decided by the manipulator finishing the final motion, i.e., for the manipulator controlled by utilizing the MDTSM scheme, one can obtain the mission time $3s$ approximately, comparing with $3.25s$ for the TSM control. More notably, the control parameters of the TSM scheme have been optimally selected, whereas if using the parameters for the MDTSM scheme, one can only get a fairy poor performance in the regulation, which leads to meaningless comparison. Therefore these results show that the MDTSM control scheme is able to achieve the regulation of the manipulator effectively.
+The performance of the controllers mentioned above is illustrated in Figure~\ref{Figure:4} and Figure~\ref{Figure:5}. Comparatively speaking, $q_1$ reaches the desired state at about $3s$ with the MDTSM scheme, the reaching time of which is approximating $0.8s$ less than of the TSM scheme, and $q_2$ performs similar behaviors with a reasonable variable range of the angular rates. \textcolor{red}{From the results shown in Figure~\ref{Figure:4} and Figure~\ref{Figure:5}, we can find that the maximum theoretical finite convergence time $t_f=3.0843s$, which can be obtained directly accoring to Eq.~(\ref{eq:total convergence time}) and simulation datas, is more than $2.5s$, the convergence time of the simulation result. Hence, we can conclude that the results have verified the analyses about the convergence time in Section~\ref{sec:2}.} Concentrate on the mission time of the entire motion, and inductively the time is decided by the manipulator finishing the final motion, i.e., for the manipulator controlled by utilizing the MDTSM scheme, one can obtain the mission time $3s$ approximately, comparing with $3.25s$ for the TSM control. More notably, the control parameters of the TSM scheme have been optimally selected, whereas if using the parameters for the MDTSM scheme, one can only get a fairy poor performance in the regulation, which leads to meaningless comparison. Therefore these results show that the MDTSM control scheme is able to achieve the regulation of the manipulator effectively.
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig4.eps}
@@ -533,7 +552,7 @@ The simulation results are demonstrated in Figure~\ref{Figure:6} and Figure~\ref
 \label{Figure:7}
 \end{figure}
 \section{Conclusion}\label{sec:5}
-A DTSM control for n-link robotic manipulator has been presented. The method integrates two individual subsystems as a unity, then builds the manifold and input for it to complete the controller design. The control scheme is able to guarantee the reaching condition of the desired sliding manifold, meanwhile the system states converge to the origin along the desired manifold. Also, the entire convergent time can be calculated accordingly. Developing the basic DTSM yields the MDTSM control, providing a solution to eliminating chattering, avoiding singularity and fast convergence. For dealing with the under actuated characteristics which may appear in the system, the HDTSM control is derived, and the overhead crane example verifies its effectiveness. However, the control parameters selection is still a challenge especially in the HDTSM scheme, and we will effort to excavate a full order dual terminal sliding mode methodology in the future for removing the obstacle caused by parameters essentially.
+A DTSM control for n-link robotic manipulator has been presented. The method integrates two individual subsystems as a unity, then builds the manifold and input for it to complete the controller design. The control scheme is able to guarantee the reaching condition of the desired sliding manifold, meanwhile the system states converge to the origin along the desired manifold. Also, the entire convergence time can be calculated accordingly. Developing the basic DTSM yields the MDTSM control, providing a solution to eliminating chattering, avoiding singularity and fast convergence. For dealing with the under actuated characteristics which may appear in the system, the HDTSM control is derived, and the overhead crane example verifies its effectiveness. However, the control parameters selection is still a challenge especially in the HDTSM scheme, and we will effort to excavate a full order dual terminal sliding mode methodology in the future for removing the obstacle caused by parameters essentially.
 \section{Acknowledgment}
 This work is partially supported by the National Natural Science Foundation of China (No. 61104112, 61503101).
 \section{References}
