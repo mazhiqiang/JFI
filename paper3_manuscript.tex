@@ -226,6 +226,42 @@ one can obtain a nonsingular solution to the stabilization of the system~(\ref{e
 \begin{proof}
 The proof is similar to the graphical analysis mentioned in~\cite{feng2013nonsingular}, and omitted here.
 \end{proof}
+\textcolor{red}{
+In practice, the control input can not be very large due to the input limitation, such as the tension limitation in the deployment of the tethered satellite system~\cite{Ma201667}, and hence it is meaningful to adapt the proposed controllers for the system subjected to the input limitation. Consider a nominal second-order system subjected to the input limitation:
+\begin{align}
+\begin{split}
+\dot x_1(t) &= x_2(t)\\
+\dot x_2(t) &= f_1(\bm x,t)+g_1(\bm x,t)+b_1(\bm x,t)f_b(u_1(t))\\
+\dot x_3(t) &= x_4(t)\\
+\dot x_4(t) &= f_2(\bm x,t)+g_2(\bm x,t)+b_2(\bm x,t)f_b(u_2(t)),\label{eq:second-order system subjected to limitation}
+\end{split}
+\end{align}
+whree $f_b(u) = R(u)u$ is a bounded function, which owns the properties as follows:
+\begin{align}\begin{split}
+  R(u)=\begin{cases}
+  u_{max}/u &u>u_{max}\\
+  1&u_{min}\le u\le u_{max}\\
+  u_{min}/u& u<u_{min}.
+\end{cases}\end{split}
+\end{align}
+\begin{myas}~\cite{Ma201667}
+For guaranteeing $0<R(u)\le 1$, $u_{max}$ and $u_{min}$ satisfy $u_{min}<0<u_{max}$. The external disturbance $g_i(\bm x,t)$, $i=1,2$ inputs $u_i$, $i=1,2$ and system state variables are all bounded, accordingly,
+\begin{align}\begin{split}
+  \varpi_1 &\ge \Vert f_1(\bm x)+\gamma\alpha\vert x_1\vert^{\alpha-1}x_2+3\gamma x_1^2x_2-\lambda x_4\Vert\\
+  \varpi_2 &\ge \Vert f_2(\bm x)+\gamma\alpha\vert x_3\vert^{\alpha-1}x_4+3\gamma x_3^2x_4+\lambda x_2\Vert\\
+  0&<\varphi\le R(u) \le 1
+\end{split}\end{align}
+\end{myas}
+Thanks to the above assumption, we give out the adaptive dual terminal sliding mode control scheme.
+\begin{mythm}
+Considering the nominal second-order system subjected to the input limitation~\ref{eq:second-order system subjected to limitation}, the inputs $u_i$,$i=1,2$ can be designed as
+\begin{align}
+  u_i &= -\varpi_i\nu\omega_i(t) b_i^{-1}sgn(s_i)\\
+  \dot\omega_i(t)&= \varpi_i\nu\varphi e^{-2\varphi^{-1}\omega_i^{-1}(t)}sgn(s_i)
+\end{align}
+\end{mythm}
+}
+
 When the input $u_1$ equals to $u_2$ in system.~(\ref{eq:second-order system}), the number of the inputs is fewer than the degrees of the freedom, resulting in that the issue transforms to be an underactuated stabilization. These underactuated systems are frequently used in the scientific field, such as flexible manipulators, overhead crane and underwater robots, because fewer actuators may decrease the mass and save the energy as well. Cooperating with the hierarchical sliding mode methodology, the manifold design scheme proposed above is able to control this kind of systems \cite{wang2004design}. We give the hierarchical dual terminal sliding mode design directly.
 \begin{mythm}
 Consider a nonlinear system described as:
@@ -412,8 +448,8 @@ and an MDTSM control scheme is produced conveniently. It's obvious that the dist
 \end{align*}
 and hence, based on the analysis in Theorem~\ref{theorem:1}, $l_1>0.1$ and $l_2>0.8$ are determined accordingly to guarantee the reaching condition of the desired sliding manifold. Also, the inputs $u_1$ and $u_2$ are able to be viewed as virtual input terms which consist of the linear combination of the crucial inputs in system, i.e., for the system~(\ref{eq:simulation second-order system}), the input terms can be expressed by $\bm u = \Xi\bm\tau$ particularly, where $\bm u\in R^2$ is the virtual input vector; $\bm \tau\in R^2$ stands for the crucial input vector; $\Xi\in R^{2\times 2}$ must have full rank.\par
 The system is supposed to be conducted to the desired state $\bm x_d=(0,0,0,0)$ from a prescript state $\bm x_0=(1.2,1.2,1.2,1.2)$. Admittedly, this prescript condition leads to a lager initial approaching distance due to the existence of the cubic terms $\gamma x^3$ in the sliding manifold, therefore a large approaching speed $k_i$ is required correspondingly. The control parameters are chosen as: $\alpha = 0.6$, $\lambda = 0.5$, $\gamma = 3$ and $k = 20$. Besides the large approaching speed selected, $\gamma$ accelerates the sliding phase indirectly. Therefore the design of the MDTSM controller for the system~(\ref{eq:simulation second-order system}) is finished, and the corresponding simulation results are illustrated from Figure~\ref{Figure:2} to Figure~\ref{Figure:3}.\par
-From Figure~\ref{Figure:2}, it's apparent that the states converge to their desired states. \textcolor{red}{For the nominal system~(\ref{eq:simulation second-order system}) handled by utilizing the MDTSM controller, accrording to Eq.~(\ref{eq:total convergence time}) and simulation datas, we can calculate the maximum theoretical finite convergence time $t_f=5.2609s$ directly. The system states, in other words, can be stable in no more than $5.609s$ theoretically. However, the system response results in Figure~\ref{Figure:2_20161108} indicate that all the states have been stable after about $1.5s$, which is far less than $t_f$. Hence, from the view of the convergence time, the simulation results are in accordance with the theoretical analyses.} Figure~\ref{Figure:3} demonstrates the inputs, the amplitudes of which are closely related to $\eta$, for the purpose of avoiding the largely chattering caused by $\eta$, the saturation function $sat()$ is applied to take place of $sign()$ to absorb it. Also, although the states have been adjusted to the origin and stay there in subsequent time, one can find that the inputs don't maintain constant but fluctuate in a certain range. The nature of the situation mentioned above is the input compensating the error caused by the distance.\par
-At this point, some effectiveness of the MDTSM control scheme proposed above has been verified, and in Section \ref{sec:robotica manipulator}, we will apply it to stabilize the behavior of a $2$-link robotic manipulator directly.
+From Figure~\ref{Figure:2}, it's apparent that the states converge to their desired states. \textcolor{red}{For the nominal system~(\ref{eq:simulation second-order system}) handled by utilizing the MDTSM controller, accrording to Eq.~(\ref{eq:total convergence time}) and simulation datas, we can calculate the maximum theoretical finite convergence time $t_f=5.2609s$ directly. The system states, in other words, can be stable in no more than $5.2609s$ theoretically. However, the system response results in Figure~\ref{Figure:2_20161108} indicate that all the states have been stable after about $1.5s$, which is far less than $t_f$. Hence, from the view of the convergence time, the simulation results are in accordance with the theoretical analyses.} Figure~\ref{Figure:3} demonstrates the inputs, the amplitudes of which are closely related to $\eta$, for the purpose of avoiding the large chattering, the boundary layer technique is adopted. Although the states have been adjusted to the origin and stay there in subsequent time, one can find that the inputs don't maintain constant but fluctuate in a certain range. The nature of the situation mentioned above means that the fluctuating inputs compensate the error caused by the disturbance.\par
+At this point, some effectiveness of the proposed MDTSM control scheme has been verified, and in Section \ref{sec:robotica manipulator}, we will apply it to stabilize the behavior of a $2$-link robotic manipulator directly.
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig2.eps}
@@ -434,7 +470,7 @@ At this point, some effectiveness of the MDTSM control scheme proposed above has
 \caption{System inputs}
 \label{Figure:3}
 \end{figure}
-\subsection{Uneractuated example}
+\subsection{Underactuated example}
 Figure~\ref{Figure:8} shows an overhead crane system, the state space equations of which is same with the formula in Eq.~(\ref{eq:underactuated system}) with state variables selected as $\bm x=(x,\dot x,q,\dot q)$, and the details are listed:
 \begin{align}
 \begin{split}
@@ -518,7 +554,7 @@ This section will give a set of simulation to examine the performance of the MDT
 \end{split}
 \end{align}
 where the main control parameters of which are selected as $\alpha = 0.6$, $\gamma = 5$ and $k = 150$ to get a fairly good control performance.\par
-The performance of the controllers mentioned above is illustrated in Figure~\ref{Figure:4} and Figure~\ref{Figure:5}. Comparatively speaking, $q_1$ reaches the desired state at about $3s$ with the MDTSM scheme, the reaching time of which is approximating $0.8s$ less than of the TSM scheme, and $q_2$ performs similar behaviors with a reasonable variable range of the angular rates. \textcolor{red}{From the results shown in Figure~\ref{Figure:4} and Figure~\ref{Figure:5}, we can find that the maximum theoretical finite convergence time $t_f=3.0843s$, which can be obtained directly accoring to Eq.~(\ref{eq:total convergence time}) and simulation datas, is more than $2.5s$, the convergence time of the simulation result. Hence, we can conclude that the results have verified the analyses about the convergence time in Section~\ref{sec:2}.} Concentrate on the mission time of the entire motion, and inductively the time is decided by the manipulator finishing the final motion, i.e., for the manipulator controlled by utilizing the MDTSM scheme, one can obtain the mission time $3s$ approximately, comparing with $3.25s$ for the TSM control. More notably, the control parameters of the TSM scheme have been optimally selected, whereas if using the parameters for the MDTSM scheme, one can only get a fairy poor performance in the regulation, which leads to meaningless comparison. Therefore these results show that the MDTSM control scheme is able to achieve the regulation of the manipulator effectively.
+The performance of the controllers mentioned above is illustrated in Figure~\ref{Figure:4} and Figure~\ref{Figure:5}. Comparatively speaking, $q_1$ reaches the desired state at about $3s$ with the MDTSM scheme, the reaching time of which is approximating $0.8s$ less than of the TSM scheme, and $q_2$ performs similar behaviors with a reasonable variable range of the angular rates. \textcolor{red}{From the results shown in Figure~\ref{Figure:4} and Figure~\ref{Figure:5}, we can find that the maximum theoretical finite convergence time $t_f=3.0843s$, which can be obtained directly accoring to Eq.~(\ref{eq:total convergence time}) and simulation datas, is more than $2.3s$, the convergence time of the simulation result. Hence, we can conclude that the results have verified the analyses about the convergence time in Section~\ref{sec:2}. For the MDTSM controller, the jiont~1 finishes its desired behaviour at about $2.3s$, and meanwhile the joint~2 spends about $1.6s$ completing the desired mission. Also, by observing the results, we can find that the stabilization time of the proposed method is less  than the TSM controller's, and the regulating process of the manipulators is steady and reasonable.} Therefore these results show that the MDTSM control scheme is able to achieve the regulation of the manipulator effectively.
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]{paper3_fig4.eps}
