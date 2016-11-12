@@ -44,7 +44,7 @@ Finite time control; Robotic manipulator control; TSM; Input limitation; Stabili
 
 \textcolor{red}{Notably, the conventional TSM surface design techniques are similar, since the surfaces are all designed for the single variable based on the finite time control theory, in another words, only the individual variable and its derivative are concerned on by most designers~\cite{mu2016switching}. This nature makes the TSM scheme become an individual control subsystem, which leads to the complicity of global convergence time in some extent. In this paper, an integral sliding mode surface design technique breaks the barriers mentioned above, and the novel surface includes two designed variables to guarantee the integral finite time convergence. Moreover, nonsingularities of the TSM scheme, chattering suppressions, underactuated applications and input limitations are also considered in the scheme.}
 
-\textcolor{red}{In this paper, a dual TSM (DTSM) controller is proposed for a class of second-order nonlinear systems with disturbances and uncertainties. A novel DTSM surface is exploited to achieve the finite time convergence, and the reaching and sliding times can both be calculated directly. For coping with the underacutated issue, cooperating with the hierarchical sliding surface design methodology, we develop a hierarchical dual TSM (HDTSM) control to ensure the rigorous stability analyses. A modified DTSM (MDTSM) control scheme is presented to regulate the motion of the $n$-link robotic manipulators, and the case subjected to input limitations is also taken into consideration. The remained paper is organized as follows: Section~\ref{sec:2} introduces a DTSM scheme for a class of second-order system, and the finite time convergences of the reaching and sliding phase are verified. Furthermore, we design extra performance parameters to obtain the MDTSM scheme, and the newly presented method has a better performance in theoretical analyses; for stabilizing the underactuated system, the HDTSM design is also developed in this section. In Section~\ref{sec:3}, the MDTSM is applied to the motion control system of the $n$-link robotic  manipulator, and the stability analysis is also carried out. Section~\ref{sec:4} exhibits the simulation results, and finally the conclusion is assigned in Section~\ref{sec:5}.}
+\textcolor{red}{In this paper, the dual TSM (DTSM) control scheme is proposed for a class of second-order nonlinear systems with disturbances and uncertainties. The novel DTSM surface is exploited to achieve the finite time convergence, and the reaching and sliding times can both be calculated directly. For coping with the underacutated issue, cooperating with the hierarchical sliding surface design methodology, we combine the hierarchical SMC scheme with the DTSM scheme to develop a hierarchical dual TSM (HDTSM) control law to ensure the rigorous stability analyses. A modified DTSM (MDTSM) control scheme is presented to regulate the motion of the $n$-link robotic manipulators, and the case subjected to input limitations is also taken into consideration. The remained paper is organized as follows: Section~\ref{sec:2} introduces the DTSM scheme, and the finite time convergences of the reaching and sliding phase are discussed. Furthermore, we provide the DTSM scheme with extra design parameters to obtain the MDTSM scheme, which performs better in theoretical analyses; for stabilizing underactuated systems, the HDTSM design is also developed in this section. In Section~\ref{sec:3}, the MDTSM is applied to the motion control system of the $n$-link robotic  manipulator, and the stability analyses are also carried out. Section~\ref{sec:4} exhibits the simulation results, and finally the conclusion is assigned in Section~\ref{sec:5}.}
 \section{Dual terminal SMC}\label{sec:2}
 Consider a second-order nominal nonlinear system:
 \begin{align}
@@ -55,7 +55,7 @@ Consider a second-order nominal nonlinear system:
 \dot x_4 &= f_2(\bm x,t)+g_2(\bm x,t)+b_2(\bm x,t)u_2,\label{eq:second-order system}
 \end{split}
 \end{align}
-where $\bm x = [x_1,x_2,x_3,x_4]^T$ is the system vector state; $f(\bm x,t)$ and $b(\bm x,t)\neq 0$ are smooth nonlinear functions with respect to $\bm x$; $u_i(t)$, $i=1,2$ stands for the scalar input; $g_i(\bm x,t)$, $i=1,2$  is defined as a bounded nonlinear function which satisfies $\Vert g_i(\bm x,t)\Vert\le l_i$, $l_i>0, i=1,2$, meaning the uncertainty and disturbance of the system. For the system mentioned above, we can establish a desired dual terminal sliding surface as:
+where $\bm x = [x_1,x_2,x_3,x_4]^T$ is the system state vector ; $f(\bm x,t)$ and $b(\bm x,t)\neq 0$ are smooth nonlinear functions with respect to $\bm x$ and $t$; $u_i(t)$, $i=1,2$ stands for the system input; $g_i(\bm x,t)$, $i=1,2$  is defined as the bounded nonlinear function which satisfies $\Vert g_i(\bm x,t)\Vert\le l_i$, $l_i>0, i=1,2$, meaning uncertainties and disturbances. For the system mentioned above, we can design the desired DTSM surface as:
 \begin{align}
 \bm s = [s_1,s_2]^T,
 \end{align}
@@ -63,13 +63,14 @@ where
 \begin{align}
 \begin{split}
 s_1 &= x_2+\vert x_1\vert^{\alpha} sgn(x_1)+x_1^3(t)-x_3\\
-s_2 &= x_4+\vert x_3\vert^{\alpha} sgn(x_3)+x_3^3(t)+x_1,\label{eq:dual sliding surface}
+s_2 &= x_4+\vert x_3\vert^{\alpha} sgn(x_3)+x_3^3(t)+x_1.\label{eq:dual sliding surface}
 \end{split}
 \end{align}
-where $sgn(x)$ is the sign function, and $0<\alpha<1$ is a positive constant. For the sake of simplicity, the symbol $t$ is usually omitted in this paper, which does not cause any confusion, and it will appear once the derivation concerns for the factor of the time strictly, i.e., the desired sliding surface $\bm s$ is often abbreviated to $\bm s$.\par
-There exist two lemmas about the finite convergence theory, providing convergence forms which contribute to the verification of the finite time convergence about the DTSM control.
+\textcolor{red}{}$sgn(x)$ is the sign function, and $0<\alpha<1$ is a positive scalar. For the sake of simplicity, the symbol $t$ is usually omitted in this paper, and it will appear once the derivation concerns for the factor of the time strictly, i.e., the desired sliding surface $\bm s(t)$ is often abbreviated as $\bm s$.}
+
+There exist two lemmas facilitating the derivation of the finite time convergence about the DTSM scheme.
 \begin{mylem}
-As described in~\cite{moulay2006finite}, it's assumed that the continuous function $V(t)$ is positive-define, satisfying the following condition:
+As described in~\cite{moulay2006finite}, it's assumed that the continuous function $V(t)$ is positive definite, satisfying following conditions:
 \begin{align}
 \dot V(t)\le -dV^\beta(t)\quad\forall t\ge t_0, V(t_0)\ge 0,
 \end{align}
@@ -86,13 +87,13 @@ Consider a second-order system:
 \dot x_2&=-\vert x_2\vert^\alpha sgn(x_3)-x_2^3-x_1,\label{eq:normal sliding surface}
 \end{split}
 \end{align}
-and selecting $V(t) = \frac{x_1^2+x_2^2}{2}$ obtains the finite convergence time as follows~\cite{moulay2006finite}:
+and oen can select the Lyapunov function $V(t) = \frac{x_1^2+x_2^2}{2}$ to obtain the finite convergence time as follows~\cite{moulay2006finite}:
 %since $\vert x\vert-x^\alpha+\vert x\vert \ge 0,0<\alpha<1$
 \begin{align}
 %t_s\le t_0+\frac{2(x_1^2+x_2^2)^{1-\alpha}}{1-\alpha}
 t_s\le t_0+\frac{(2V(t_0))^{\frac{1-\alpha}{2}}}{1-\alpha},
 \end{align}
-where the definitions of  $t_s$, $t_0$, $\alpha$ are similar to Lemma \ref{lemma:1}. Introducing the amplitude scalar $d$ into the Eqs.~(\ref{eq:normal sliding surface}) obtains  more normal forms:
+where the definitions of  $t_s$, $t_0$, $\alpha$ are similar to Lemma \ref{lemma:1}. Introducing the scalar $d$ into the Eq.~(\ref{eq:normal sliding surface}) obtains:
 \begin{align}
 \dot x_1&=-d(\vert x_1\vert^\alpha sgn(x_1)-x_1^3+x_2)\\
 \dot x_2&=-d(\vert x_2\vert^\alpha sgn(x_2)-x_2^3-x_1),\label{eq:more normal sliding surface}
@@ -102,9 +103,8 @@ the convergence time of which is
 t_s\le t_0+\frac{(2V(t_0))^{\frac{1-\alpha}{2}}}{d(1-\alpha)}.
 \end{align}\label{lemma:2}
 \end{mylem}
-For stabilization of the second-order system shown as~Eq. (\ref{eq:second-order system}), DTSM control inputs are addressed according the following theorem.
-\begin{mythm}\label{theorem:1}Dual Terminal SMC Design.
-The second-order system (\ref{eq:second-order system}) will reach the desired surface $\bm s = 0$ shown in~Eq. (\ref{eq:dual sliding surface}) in finite time. The states of the system will converge to zero along the surface $\bm s=0$ in finite time, if the inputs are designed as follows:
+\textcolor{red}{For stabilization of the second-order system shown as~Eq. (\ref{eq:second-order system}), DTSM control inputs are addressed according the following to theorem.}
+\begin{mythm}\label{theorem:1}DTSM Controller Design. The states of the system~(\ref{eq:second-order system}) will converge to origins along the surface $\bm s=0$ in finite time, if the inputs are designed as follows:
 \begin{align}
 \begin{split}
 u_1 &= -b_1^{-1}(\bm x)(f_1(\bm x)+\alpha\vert x_1\vert^{\alpha-1}x_2+3x_1^2x_2-x_4+k_1sgn(s_1))\\
@@ -126,7 +126,7 @@ u_{eq2} &= -b_2^{-1}(\bm x)(f_2(\bm x)+\alpha\vert x_3\vert^{\alpha-1}x_4+3x_3^2
 \end{split}\end{align}
 are the eauivalent control inputs to ensure $\dot s_1 = 0$ and $\dot s_2=0$, respectively, with $u_i = u_{eqi}$, $i=1,2$. The switching inputs are designed as $u_{swi}=-b_i^{-1}k_isgn(s_i)$, $i=1,2$ to guarantee the finite time reaching conditions of the ideal sliding surface.}
 
-Consider the Lyapunov function $V=\frac{1}{2}{\bm s}^T\bm s$, the derivative of which with respect to time $\dot V = {\bm s}^T \bm {\dot s}$ follows
+Considering the Lyapunov function $V=\frac{1}{2}{\bm s}^T\bm s$, its derivative $\dot V$ can be written as
 \begin{align}
 \begin{split}
 \dot V &= {\bm s}^T\dot{\bm  s}\\
@@ -144,19 +144,19 @@ Substituting inputs (\ref{eq:DSM input}) in~Eq. (\ref{eq:V_1}) yields
 &\le -\min(\eta_1,\eta_2)({\bm s}^T\bm s)^\frac{1}{2}\\
 &\le -\sqrt{2}\min(\eta_1,\eta_2)V^\frac{1}{2}\le 0.
 \end{align*}
-Hence, the system (\ref{eq:second-order system}) asymptotically converges to the desired surface (\ref{eq:dual sliding surface}), and incidentally the convergence time is calculated according to the finite time convergence theory.\par
-Once the system (\ref{eq:second-order system}) reaches the desired surface~(\ref{eq:dual sliding surface}), the whole system is handled by the reduced system:
+Hence, the system (\ref{eq:second-order system}) converges to the desired surface (\ref{eq:dual sliding surface}), and incidentally the convergence time can be calculated according to the finite time convergence theory.\par
+Once the system (\ref{eq:second-order system}) reaches the desired surface~(\ref{eq:dual sliding surface}), the entire system states are handled by the reduced system:
 \begin{align*}
 \dot x_1&=-\vert x_1\vert^\alpha sgn(x_1)-x_1^3+x_3\\
 \dot x_3&=-\vert x_3\vert^\alpha sgn(x_3)-x_3^3-x_1.
 \end{align*}\par
-The total convergence time can be calculated by dividing the convergence into two phases with respect to the relation between the system and the surface, namely, the reaching phase and the sliding phase, and specifically, according to Lemma \ref{lemma:2}, the total finite convergence time $t_f$ is calculated from:
+\textcolor{red}{The total convergence time can be calculated by dividing the convergence into two phases with respect to the relation of the system states and the DTSM surface, namely, the reaching phase and the sliding phase. Hence, according to Lemma \ref{lemma:2}, the theoretical total finite convergence time $t_f$ can be calculated from:
 \begin{align}
 t_f = \underbrace{t_0+\frac{\sqrt{2}V^{\frac{1}{2}}(t_0)}{\min(\eta_1,\eta_2)}}_{t_r}+\underbrace{\frac{(2\hat V(t_r))^{\frac{1-\alpha}{2}}}{1-\alpha}}_{t_s}<\infty,
 \end{align}
-where $\hat V(t) = \frac{x_1^2+x_3^2}{2}$ is the Lyapunov function describing the convergence motion of the reduced system. The reaching and sliding time are defined as $t_r$ and $t_s$, respectively. This completes the proof.
+where $\hat V(t) = \frac{x_1^2+x_3^2}{2}$ is the Lyapunov function selected for the reduced system. $t_r$ and $t_s$ stand for the reaching time and the sliding time, respectively. This completes the proof.}
 \end{proof}
-On the basis of Theorem \ref{theorem:1}, we proceed to develop the parameters in the surface to improve the performance, which introduces a modified method for stabilizing the system~(\ref{eq:second-order system}), and furthermore this method makes the design of the surface more flexible. Consider the system~(\ref{eq:second-order system}) with the surface $\bm s = [s_1,s_2]^T$, the details of which are described by following expressions:
+On the basis of Theorem \ref{theorem:1}, we proceed to develop the parameters in the surface design to improve the performance, and furthermore this modified method makes the design process more flexible. Consider the system~(\ref{eq:second-order system}) with the surface $\bm s = [s_1,s_2]^T$, the details of which are described by following expressions:
 \begin{align}
 \begin{split}
 s_1 &= x_2+\gamma(\vert x_1\vert^{\alpha} sgn(x_1)+x_1^3(t))-\lambda x_3\\
