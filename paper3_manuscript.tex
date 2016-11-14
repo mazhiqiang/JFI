@@ -31,10 +31,10 @@
 \address{Research Institute of Intelligent Control and Systems, Harbin Institute of Technology, Harbin 150001, China}
 
 \begin{abstract}
-This paper proposes a dual terminal SMC scheme for the rigid robotic manipulator. \textcolor{red}{As a signiﬁcant novelty, the presented design technique integates the individual SM surfaces to achieve the finite time convergence of overall system states by utilizing specially designed construct, and accordingly the convergence time for the entire system is easily obtained due to the integral design. The underactuated issue and input limitation are specially considered in this paper, i.e., the underactuated issue are solved by introducing the hierarchical methodology into the basic dual SMC scheme. Combining the adaptive technique with the proposed method eliminates the adverse effect caused by the input limitation in the rigious stability analysis.} These newly proposed methods also have the characteristics of nonsingularity and chattering suppression, and the effectiveness and high efficiency are verified by stabilizing the motions of the overhead crane and the rigid robotic manipulator. Simulation results validate the theoretical analyses about the proposed method.
+This paper proposes a dual terminal sliding mode scheme for tracking tasks of rigid robotic manipulators. \textcolor{red}{As a signiﬁcant novelty, the presented design technique integates the individual sliding mode surfaces to achieve the finite time convergence of tracking errors utilizing specially designed construct, and accordingly the convergence time is easily obtained due to the integral design. The underactuated issue and input limitation are specially considered in this paper, i.e., the underactuated issue is solved by introducing the hierarchical methodology into the basic dual sliding mode controller. Combining the adaptive technique with the proposed method eliminates the adverse effect caused by the input limitation in the rigious stability analysis.} These newly proposed methods also have the characteristics of nonsingularity and chattering suppression, and the effectiveness and high efficiency are verified by stabilizing the motions of the overhead crane and the tracking tasks of the rigid robotic manipulator. Simulation results validate the theoretical analyses about the proposed method.
 \end{abstract}
 \begin{keyword}
-Finite time control; Robotic manipulator control; TSM; Input limitation; Stability analysis
+Finite time control; Robotic manipulator control; Terminal sliding mode control; Input limitation; Stability analysis
 \end{keyword}
 \end{frontmatter}
 \section{Introduction}
@@ -223,7 +223,7 @@ Consider a second-order system (\ref{eq:second-order system}), and for eliminati
 u_1 &= -b_1^{-1}(\bm x)(f_1(\bm x)-sat(u_{f1},u_{s1})+3\gamma x_1^2x_2-\lambda x_4+k_1sgn(s_1))\\
 u_2 &= -b_2^{-1}(\bm x)(f_2(\bm x)-sat(u_{f2},u_{s2})+3\gamma x_3^2x_4+\lambda x_2+k_2sgn(s_2)),\label{eq:nonsingular modified input}
 \end{align}
-and one can obtain a nonsingular solution to the stabilization of the system~(\ref{eq:second-order system}), providing the finite time convergence by using MDTSM technique.
+and one can obtain a nonsingular solution to the stabilization of the system~(\ref{eq:second-order system}), providing the finite time convergence using MDTSM technique.
 \end{mythm}
 \begin{proof}
 The proof is similar to the graphical analysis mentioned in~\cite{feng2013nonsingular}, and omitted here.
@@ -447,10 +447,10 @@ O_{2\times 2} &\begin{pmatrix}
 \end{split}
 \end{align}\par
 Referring to Theorem \ref{theorem:4}, it's easy to obtain the MDTSM input for the even $n$-link manipulator. Essentially, this technique requires that the SM surface has to consist of $n/2$ pairs of individual sliding surfaces, in another words, this design for the surface can be regarded to design the SM surfaces for the $n/2$ sub-systems.\par
-Considering the situation that $n$ is an odd number, the $n$-link manipulator as we know is assumed as a full-actuated system, and hence an individual dimension can be excluded by using conventional TSM scheme, which results in that the remained $n-1$-link manipulator can be controlled by the proposed MDTSM scheme.
+Considering the situation that $n$ is an odd number, the $n$-link manipulator as we know is assumed as a full-actuated system, and hence an individual dimension can be excluded using conventional TSM scheme, which results in that the remained $n-1$-link manipulator can be controlled by the proposed MDTSM scheme.
 \end{myrem}
 \begin{myrem}
-The singularity of the MDTSM scheme for the robotic manipulator can be removed by using the technique introduced in Theorem \ref{theorem:3}.
+The singularity of the MDTSM scheme for the robotic manipulator can be removed using the technique introduced in Theorem \ref{theorem:3}.
 \end{myrem}
 \begin{myrem}
 One can also use the term $x^{a/b}$ instead of $sgn^\alpha(x)$ in the DTSM control mentioned above, where $a$ and $b$ are odd numbers with $0<a/b<1$, as the entire proof maintains available theoretically. For handling the chattering, the $sign(x)$ is replaced with $sat(x,\delta)$, and the boundedness thickness can be selected as $\delta=1\times 10^{-4}$. \textcolor{red}{Incorporating the adaptive MDTSM technique, the manipulator dynamics subjected to the input limitation can also been stabilized as desired.}
